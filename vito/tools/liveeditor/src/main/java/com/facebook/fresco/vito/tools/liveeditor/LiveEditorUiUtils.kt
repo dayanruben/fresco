@@ -175,11 +175,12 @@ class LiveEditorUiUtils(
 
     return TextView(context).apply {
       @SuppressLint("SetTextI18n")
-      text = "$emoji $label"
+      text = "$emoji $label ${ImageSourceUiUtil.COPY_GLYPH}"
       textSize = 16f
       setTypeface(typeface, Typeface.BOLD)
       val pad = 12.dpToPx(context)
       setPadding(pad, 0, pad, pad)
+      setOnClickListener { ImageSourceUiUtil.copyToClipboard(context, "Cache source", label) }
     }
   }
 

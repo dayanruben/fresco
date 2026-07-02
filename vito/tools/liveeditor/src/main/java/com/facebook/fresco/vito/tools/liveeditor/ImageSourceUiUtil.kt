@@ -8,6 +8,8 @@
 package com.facebook.fresco.vito.tools.liveeditor
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Typeface
 import android.text.Spannable
@@ -81,12 +83,13 @@ class ImageSourceUiUtil(private val context: Context) {
   }
 
   fun createImageInfoView(info: Pair<String, String>, parent: ViewGroup): View {
-    val spannable = SpannableString("${info.first} \n${info.second}")
+    val label = "${info.first} $COPY_GLYPH"
+    val spannable = SpannableString("$label\n${info.second}")
     spannable.apply {
-      setSpan(StyleSpan(Typeface.BOLD), 0, info.first.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+      setSpan(StyleSpan(Typeface.BOLD), 0, label.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
       setSpan(
           StyleSpan(Typeface.ITALIC),
-          info.first.length,
+          label.length,
           spannable.length,
           Spannable.SPAN_INCLUSIVE_INCLUSIVE,
       )
@@ -95,7 +98,10 @@ class ImageSourceUiUtil(private val context: Context) {
     val textView: TextView =
         LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false)
             as TextView
-    return textView.apply { text = spannable }
+    return textView.apply {
+      text = spannable
+      setOnClickListener { copyToClipboard(context, info.first, info.second) }
+    }
   }
 
   private fun Int.spToPx(context: Context): Float =
@@ -104,4 +110,24 @@ class ImageSourceUiUtil(private val context: Context) {
           this.toFloat(),
           context.resources.displayMetrics,
       )
+
+  companion object {
+    // 📋 clipboard glyph appended to a row's label as a copy affordance.
+    internal const val COPY_GLYPH = "📋"
+
+    /**
+     * Copies [value] to the system clipboard and confirms with a Toast. Blank values are skipped so
+     * a "Copied" toast never appears with nothing on the clipboard.
+     */
+    internal fun copyToClipboard(context: Context, label: String, value: String) {
+      if (value.isBlank()) {
+        Toast.makeText(context, "Nothing to copy", Toast.LENGTH_SHORT).show()
+        return
+      }
+      val clipboard =
+          context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return
+      clipboard.setPrimaryClip(ClipData.newPlainText(label, value))
+      Toast.makeText(context, "Copied $label", Toast.LENGTH_SHORT).show()
+    }
+  }
 }
