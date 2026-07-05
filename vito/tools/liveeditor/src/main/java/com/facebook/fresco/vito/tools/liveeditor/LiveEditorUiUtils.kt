@@ -27,6 +27,15 @@ import com.facebook.fresco.vito.core.impl.debug.DebugOverlayImageOriginColor
 import com.facebook.fresco.vito.core.impl.debug.StringDebugDataProvider
 import com.facebook.fresco.vito.core.impl.obtainExtras
 import com.facebook.fresco.vito.options.ImageOptions
+import com.facebook.fresco.vito.source.BitmapImageSource
+import com.facebook.fresco.vito.source.ColorImageSource
+import com.facebook.fresco.vito.source.DrawableImageSource
+import com.facebook.fresco.vito.source.DrawableResImageSource
+import com.facebook.fresco.vito.source.EmptyImageSource
+import com.facebook.fresco.vito.source.FirstAvailableImageSource
+import com.facebook.fresco.vito.source.ImageSource
+import com.facebook.fresco.vito.source.IncreasingQualityImageSource
+import com.facebook.fresco.vito.source.UriImageSource
 
 class LiveEditorUiUtils(
     var liveEditor: ImageLiveEditor?,
@@ -189,9 +198,8 @@ class LiveEditorUiUtils(
         // 0. Cache source indicator (color-coded emoji)
         addView(createCacheSourceIndicator(context))
 
-        // 1. ImageSource info
-        var info: List<Pair<String, String>> =
-            ImageSourceParser.convertSourceToKeyValue(liveEditor?.getSource().toString())
+        // 1. ImageSource info — typed + recursive (source type + per-source URLs).
+        var info: List<Pair<String, String>> = sourceInfoRows(liveEditor?.getSource())
 
         // 2. Debug provider data
         liveEditor?.let { liveEditorNonNull ->
@@ -380,5 +388,38 @@ class LiveEditorUiUtils(
         )
 
     internal fun Int.dpToPx(context: Context): Int = dpToPxF(context).toInt()
+
+    /**
+     * Flattens an [ImageSource] into Info-tab rows: a "Source type" row (top-level
+     * [ImageSource.getClassNameString]) followed by one row per constituent source. Composites are
+     * unwrapped recursively — [IncreasingQualityImageSource] into low-res/high-res rows,
+     * [FirstAvailableImageSource] into indexed rows. Reads typed accessors directly instead of the
+     * fragile toString parse (URLs contain `=`/`,` which that parser shredded). Custom or future
+     * subtypes not handled above fall back to a [Object.toString] row so nothing is silently
+     * dropped during debugging. Empty for null.
+     */
+    internal fun sourceInfoRows(source: ImageSource?): List<Pair<String, String>> {
+      if (source == null) return emptyList()
+      return listOf("Source type" to source.getClassNameString()) + sourceUrlRows(source, "")
+    }
+
+    private fun sourceUrlRows(source: ImageSource, suffix: String): List<Pair<String, String>> =
+        when (source) {
+          is IncreasingQualityImageSource ->
+              sourceUrlRows(source.lowResSource, "$suffix (low-res)") +
+                  sourceUrlRows(source.highResSource, "$suffix (high-res)")
+          is FirstAvailableImageSource ->
+              source.imageSources.flatMapIndexed { i, inner ->
+                sourceUrlRows(inner, "$suffix (${i + 1}/${source.imageSources.size})")
+              }
+          is UriImageSource -> listOf("Image URL$suffix" to source.imageUri.toString())
+          is BitmapImageSource ->
+              listOf("Image (bitmap)$suffix" to "${source.bitmap.width}x${source.bitmap.height}")
+          is ColorImageSource -> listOf("Image (color)$suffix" to "#%08X".format(source.color))
+          is DrawableResImageSource -> listOf("Image (resource)$suffix" to "resId=${source.resId}")
+          is DrawableImageSource -> listOf("Image (drawable)$suffix" to source.drawable.toString())
+          is EmptyImageSource -> emptyList()
+          else -> listOf("Image (source)$suffix" to source.toString())
+        }
   }
 }

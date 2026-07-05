@@ -7,6 +7,7 @@
 
 import com.facebook.fresco.buildsrc.Deps
 import com.facebook.fresco.buildsrc.GradleDeps
+import com.facebook.fresco.buildsrc.TestDeps
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -34,6 +35,13 @@ dependencies {
     implementation project(':vito:view')
 
     implementation Deps.AndroidX.core
+
+    testImplementation TestDeps.junit
+    testImplementation TestDeps.assertjCore
+    testImplementation(TestDeps.robolectric) {
+        exclude group: 'commons-logging', module: 'commons-logging'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
 }
 
 android {
