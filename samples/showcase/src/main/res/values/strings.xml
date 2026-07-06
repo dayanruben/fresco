@@ -9,6 +9,11 @@
 
   <string name="action_settings">Settings</string>
   <string name="action_select_custom_images" description="Toolbar action label that lets the user pick local images to display across the Showcase gallery and list examples">Select Custom Images</string>
+  <string name="action_window_color_mode" description="Toolbar dropdown label for switching the Showcase window color mode between Normal, P3 (wide color gamut) and HDR">Window color mode</string>
+  <string name="color_mode_group_window" description="Prefix shown before each color mode option in the toolbar dropdown, indicating the option applies to the app window">Window</string>
+  <string name="color_mode_option_normal" description="Color mode dropdown option for the default (standard) window color mode">Normal</string>
+  <string name="color_mode_option_p3" description="Color mode dropdown option for the P3 wide color gamut window color mode">P3</string>
+  <string name="color_mode_option_hdr" description="Color mode dropdown option for the HDR (high dynamic range) window color mode">HDR</string>
 
   <string name="vito_simple_help">Basic Vito example that just sets the image URI.</string>
 

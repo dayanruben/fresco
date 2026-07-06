@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item android:id="@+id/action_color_mode"
+      android:title="@string/action_window_color_mode"
+      android:orderInCategory="100"
+      app:actionViewClass="android.widget.Spinner"
+      app:showAsAction="always"
+      />
   <item android:id="@+id/action_prev_image"
       android:title="Previous"
       android:orderInCategory="101"

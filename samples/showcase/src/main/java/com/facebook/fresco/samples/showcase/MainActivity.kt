@@ -7,11 +7,15 @@
 
 package com.facebook.fresco.samples.showcase
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Spinner
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -22,6 +26,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
+import com.facebook.fresco.samples.showcase.common.SpinnerUtils.setupWithList
 import com.facebook.fresco.samples.showcase.permissions.StoragePermissionHelper
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -37,6 +42,23 @@ class MainActivity : AppCompatActivity() {
       registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia()) {
         ShowcaseProvider.imageUriProvider.customUris = it
       }
+
+  @get:SuppressLint("InlinedApi")
+  private val colorModeOptions: Pair<List<Pair<String, Int>>, String>
+    get() =
+        Pair(
+            buildList {
+              add(getString(R.string.color_mode_option_normal) to ActivityInfo.COLOR_MODE_DEFAULT)
+              add(
+                  getString(R.string.color_mode_option_p3) to
+                      ActivityInfo.COLOR_MODE_WIDE_COLOR_GAMUT
+              )
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                add(getString(R.string.color_mode_option_hdr) to ActivityInfo.COLOR_MODE_HDR)
+              }
+            },
+            getString(R.string.color_mode_group_window),
+        )
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -104,6 +126,14 @@ class MainActivity : AppCompatActivity() {
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.main, menu)
+    val colorModeItem = menu.findItem(R.id.action_color_mode)
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+      (colorModeItem.actionView as? Spinner)?.setupWithList(colorModeOptions) { colorMode ->
+        window.colorMode = colorMode
+      }
+    } else {
+      colorModeItem.isVisible = false
+    }
     // the support toolbar should probably do this by default
     val styles =
         obtainStyledAttributes(
