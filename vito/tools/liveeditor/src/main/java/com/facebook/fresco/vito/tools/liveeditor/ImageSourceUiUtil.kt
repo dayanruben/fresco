@@ -100,6 +100,7 @@ class ImageSourceUiUtil(private val context: Context) {
             as TextView
     return textView.apply {
       text = spannable
+      setTextColor(LiveEditorUiUtils.dialogTextColor(context))
       setOnClickListener { copyToClipboard(context, info.first, info.second) }
     }
   }

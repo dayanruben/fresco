@@ -9,6 +9,7 @@ package com.facebook.fresco.vito.tools.liveeditor
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
@@ -20,6 +21,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import com.facebook.drawee.backends.pipeline.info.ImageOrigin
 import com.facebook.fresco.vito.core.impl.FrescoDrawable2Impl
 import com.facebook.fresco.vito.core.impl.KFrescoVitoDrawable
@@ -96,6 +98,7 @@ class LiveEditorUiUtils(
                       text = title
                       textSize = 18f
                       setTypeface(typeface, android.graphics.Typeface.BOLD)
+                      setTextColor(dialogTextColor(context))
                       val titleHorizontalPad = 12.dpToPx(context)
                       val titleBottomPad = 6.dpToPx(context)
                       setPadding(titleHorizontalPad, 0, titleHorizontalPad, titleBottomPad)
@@ -118,6 +121,7 @@ class LiveEditorUiUtils(
               TextView(context).apply {
                 @SuppressLint("SetTextI18n")
                 text = "No image options available"
+                setTextColor(dialogTextColor(context))
               }
           )
         }
@@ -187,6 +191,7 @@ class LiveEditorUiUtils(
       text = "$emoji $label ${ImageSourceUiUtil.COPY_GLYPH}"
       textSize = 16f
       setTypeface(typeface, Typeface.BOLD)
+      setTextColor(dialogTextColor(context))
       val pad = 12.dpToPx(context)
       setPadding(pad, 0, pad, pad)
       setOnClickListener { ImageSourceUiUtil.copyToClipboard(context, "Cache source", label) }
@@ -212,7 +217,12 @@ class LiveEditorUiUtils(
 
         // Render all info
         if (info.isEmpty()) {
-          addView(TextView(context).apply { text = "Source is Empty" })
+          addView(
+              TextView(context).apply {
+                text = "Source is Empty"
+                setTextColor(dialogTextColor(context))
+              }
+          )
         }
         info.forEach { infoItem ->
           val view = ImageSourceUiUtil(context).createImageInfoView(infoItem, this)
@@ -344,6 +354,24 @@ class LiveEditorUiUtils(
   }
 
   companion object {
+    // Debug tool overlay text colors — chosen to contrast the DIALOG_BACKGROUND_* colors in
+    // LiveEditorOnScreenButtonController. Kept as literals because the live editor renders
+    // into a raw overlay Context that does not carry a Material/AppCompat theme, so system
+    // text-color attributes cannot be relied on.
+    @SuppressLint("HexColorValueUsage")
+    @ColorInt
+    private const val DIALOG_TEXT_NIGHT = 0xFFF0F2F5.toInt()
+    @SuppressLint("HexColorValueUsage")
+    @ColorInt
+    private const val DIALOG_TEXT_DAY = 0xFF1E1E2E.toInt()
+
+    @ColorInt
+    internal fun dialogTextColor(context: Context): Int {
+      val nightMode = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+      return if (nightMode == Configuration.UI_MODE_NIGHT_YES) DIALOG_TEXT_NIGHT
+      else DIALOG_TEXT_DAY
+    }
+
     /**
      * Returns a human-readable label for the image origin string.
      *
