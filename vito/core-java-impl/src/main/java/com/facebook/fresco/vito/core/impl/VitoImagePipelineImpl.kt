@@ -177,23 +177,23 @@ class VitoImagePipelineImpl(
           .get()
 
   override fun isInDiskCacheSync(
-      vitoImageRequest: VitoImageRequest,
+      imageRequest: VitoImageRequest,
   ): Boolean {
-    val imageRequest = vitoImageRequest.finalImageRequest ?: return false
-    return imagePipeline.isInDiskCacheSync(imageRequest)
+    val finalRequest = imageRequest.finalImageRequest ?: return false
+    return imagePipeline.isInDiskCacheSync(finalRequest)
   }
 
   override fun isInDiskCacheSync(
-      vitoImageRequest: VitoImageRequest,
+      imageRequest: VitoImageRequest,
       timeout: Long,
       unit: TimeUnit,
   ): Boolean? {
     if (timeout <= 0) {
-      return isInDiskCacheSync(vitoImageRequest)
+      return isInDiskCacheSync(imageRequest)
     }
-    val imageRequest = vitoImageRequest.finalImageRequest ?: return null
+    val finalRequest = imageRequest.finalImageRequest ?: return null
     return try {
-      DataSources.waitForFinalResult(imagePipeline.isInDiskCache(imageRequest), timeout, unit)
+      DataSources.waitForFinalResult(imagePipeline.isInDiskCache(finalRequest), timeout, unit)
     } catch (t: Throwable) {
       null
     }

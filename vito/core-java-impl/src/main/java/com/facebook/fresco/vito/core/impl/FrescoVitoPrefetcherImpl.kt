@@ -26,7 +26,6 @@ import com.facebook.imagepipeline.core.ImagePipeline
 import com.facebook.imagepipeline.listener.RequestListener
 import com.facebook.imagepipeline.request.ImageRequest
 import java.lang.NullPointerException
-import java.util.concurrent.CancellationException
 
 class FrescoVitoPrefetcherImpl(
     private val imagePipeline: ImagePipeline,
@@ -47,8 +46,6 @@ class FrescoVitoPrefetcherImpl(
       PrefetchTarget.MEMORY_ENCODED ->
           prefetchToEncodedCache(uri, imageOptions, callerContext, callsite)
       PrefetchTarget.DISK -> prefetchToDiskCache(uri, imageOptions, callerContext, callsite)
-      else ->
-          DataSources.immediateFailedDataSource(CancellationException("Prefetching is not enabled"))
     }
   }
 
@@ -84,8 +81,6 @@ class FrescoVitoPrefetcherImpl(
               callerContext = callerContext,
               requestListener = null,
           )
-      else ->
-          DataSources.immediateFailedDataSource(CancellationException("Prefetching is not enabled"))
     }
   }
 
