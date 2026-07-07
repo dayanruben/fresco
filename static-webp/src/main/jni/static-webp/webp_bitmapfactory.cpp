@@ -182,6 +182,16 @@ jobject doDecode(
 
   WebPGetInfo(encoded_image, encoded_image_length, &image_width, &image_height);
 
+  // Bound decoded pixel count to prevent a VP8L decompression-bomb DoS: a tiny
+  // input can declare a huge canvas and the whole decode is O(width*height).
+  // 32M pixels caps both the bitmap allocation and decode cost well above any
+  // legitimate on-screen image.
+  constexpr int64_t kMaxWebPPixelCount = 32LL * 1024 * 1024;
+  if (image_width <= 0 || image_height <= 0 ||
+      static_cast<int64_t>(image_width) * image_height > kMaxWebPPixelCount) {
+    return {};
+  }
+
   WebPDecoderConfig config;
   WebPInitDecoderConfig(&config);
 
