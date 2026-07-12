@@ -16,11 +16,10 @@ object MediaUtils {
 
   @JvmField // Additional mime types that we know to be a particular media type but which may not be
   // supported natively on the device.
-  val ADDITIONAL_ALLOWED_MIME_TYPES: Map<String, String> =
-      mapOf(
-          "mkv" to "video/x-matroska",
-          "glb" to "model/gltf-binary",
-      )
+  val ADDITIONAL_ALLOWED_MIME_TYPES: Map<String, String> = mapOf(
+      "mkv" to "video/x-matroska",
+      "glb" to "model/gltf-binary",
+  )
 
   @JvmStatic fun isPhoto(mimeType: String?): Boolean = mimeType?.startsWith("image/") ?: false
 

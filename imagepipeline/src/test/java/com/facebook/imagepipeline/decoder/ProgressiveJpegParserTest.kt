@@ -99,32 +99,31 @@ class ProgressiveJpegParserTest {
 
   @Test
   fun testBasic() {
-    val veryFakeJpeg =
-        byteArrayOf(
-            0xff.toByte(),
-            0xd8.toByte(),
-            0xff.toByte(),
-            0xff.toByte(),
-            0xff.toByte(),
-            0xda.toByte(),
-            0x00.toByte(),
-            0x03.toByte(),
-            0x00.toByte(),
-            0xff.toByte(),
-            0xff.toByte(),
-            0xff.toByte(),
-            0xda.toByte(),
-            0x00.toByte(),
-            0x03.toByte(),
-            0x00.toByte(),
-            0xff.toByte(),
-            0xda.toByte(),
-            0x00.toByte(),
-            0x03.toByte(),
-            0x00.toByte(),
-            0xff.toByte(),
-            0xda.toByte(),
-        )
+    val veryFakeJpeg = byteArrayOf(
+        0xff.toByte(),
+        0xd8.toByte(),
+        0xff.toByte(),
+        0xff.toByte(),
+        0xff.toByte(),
+        0xda.toByte(),
+        0x00.toByte(),
+        0x03.toByte(),
+        0x00.toByte(),
+        0xff.toByte(),
+        0xff.toByte(),
+        0xff.toByte(),
+        0xda.toByte(),
+        0x00.toByte(),
+        0x03.toByte(),
+        0x00.toByte(),
+        0xff.toByte(),
+        0xda.toByte(),
+        0x00.toByte(),
+        0x03.toByte(),
+        0x00.toByte(),
+        0xff.toByte(),
+        0xda.toByte(),
+    )
 
     testFirstNBytes(veryFakeJpeg, 3, false, 0, 0)
     testFirstNBytes(veryFakeJpeg, 6, false, 0, 0)

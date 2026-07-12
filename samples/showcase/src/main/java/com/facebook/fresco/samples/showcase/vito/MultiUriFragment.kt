@@ -51,14 +51,13 @@ class MultiUriFragment : BaseShowcaseFragment() {
 
     view.findViewById<Button>(R.id.btn_both).setOnClickListener {
       val lowRes = sampleUris().createSampleUri(ImageUriProvider.ImageSize.XS).asImageSource()
-      val anyHighRes =
-          listOf(
-                  sampleUris().createSampleUri(ImageUriProvider.ImageSize.L),
-                  sampleUris().createSampleUri(ImageUriProvider.ImageSize.XL),
-                  sampleUris().createSampleUri(ImageUriProvider.ImageSize.XXL),
-              )
-              .map(ImageSourceProvider::forUri)
-              .toTypedArray()
+      val anyHighRes = listOf(
+          sampleUris().createSampleUri(ImageUriProvider.ImageSize.L),
+          sampleUris().createSampleUri(ImageUriProvider.ImageSize.XL),
+          sampleUris().createSampleUri(ImageUriProvider.ImageSize.XXL),
+      )
+          .map(ImageSourceProvider::forUri)
+          .toTypedArray()
       VitoView.show(
           ImageSourceProvider.increasingQuality(
               lowRes,

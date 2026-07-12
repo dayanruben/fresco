@@ -34,13 +34,12 @@ class BitmapMemoryCacheTrimStrategy : CacheTrimStrategy {
   companion object {
     private const val TAG = "BitmapMemoryCacheTrimStrategy"
 
-    private val FULL_TRIM_TYPES =
-        setOf(
-            MemoryTrimType.OnAppBackgrounded,
-            MemoryTrimType.OnSystemMemoryCriticallyLowWhileAppInForeground,
-            MemoryTrimType.OnSystemLowMemoryWhileAppInForeground,
-            MemoryTrimType.OnSystemLowMemoryWhileAppInBackgroundLowSeverity,
-        )
+    private val FULL_TRIM_TYPES = setOf(
+        MemoryTrimType.OnAppBackgrounded,
+        MemoryTrimType.OnSystemMemoryCriticallyLowWhileAppInForeground,
+        MemoryTrimType.OnSystemLowMemoryWhileAppInForeground,
+        MemoryTrimType.OnSystemLowMemoryWhileAppInBackgroundLowSeverity,
+    )
 
     @JvmField
     val SUPPORTED_TRIM_TYPES: Set<MemoryTrimType> =

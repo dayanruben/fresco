@@ -64,15 +64,14 @@ constructor(
       return null
     }
     val imageView = startValues.view
-    val scaleType =
-        InterpolatingScaleType(
-            fromScale,
-            toScale,
-            startBounds,
-            endBounds,
-            fromFocusPoint,
-            toFocusPoint,
-        )
+    val scaleType = InterpolatingScaleType(
+        fromScale,
+        toScale,
+        startBounds,
+        endBounds,
+        fromFocusPoint,
+        toFocusPoint,
+    )
     val vitoDrawable = VitoView.getDrawable(imageView) ?: return null
     val originalVitoImageRequest = vitoDrawable.imageRequest ?: return null
     VitoView.show(

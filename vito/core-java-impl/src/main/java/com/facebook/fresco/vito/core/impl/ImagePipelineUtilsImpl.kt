@@ -38,21 +38,20 @@ class ImagePipelineUtilsImpl(private val imageDecodeOptionsProvider: ImageDecode
       return null
     }
     return createDecodedImageRequestBuilder(
-            createEncodedImageRequestBuilder(uri, imageOptions),
-            imageOptions,
-        )
+        createEncodedImageRequestBuilder(uri, imageOptions),
+        imageOptions,
+    )
         ?.build()
   }
 
   override fun wrapDecodedImageRequest(
       originalRequest: ImageRequest,
       imageOptions: DecodedImageOptions,
-  ): ImageRequest? =
-      createDecodedImageRequestBuilder(
-              createEncodedImageRequestBuilder(originalRequest, imageOptions),
-              imageOptions,
-          )
-          ?.build()
+  ): ImageRequest? = createDecodedImageRequestBuilder(
+      createEncodedImageRequestBuilder(originalRequest, imageOptions),
+      imageOptions,
+  )
+      ?.build()
 
   override fun buildEncodedImageRequest(
       uri: Uri?,

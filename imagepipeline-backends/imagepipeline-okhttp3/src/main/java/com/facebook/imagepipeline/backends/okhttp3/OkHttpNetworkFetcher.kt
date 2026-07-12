@@ -93,13 +93,12 @@ constructor(
   override fun getExtraMap(
       fetchState: OkHttpNetworkFetchState,
       byteSize: Int,
-  ): Map<String, String>? =
-      mapOf(
-          QUEUE_TIME to (fetchState.responseTime - fetchState.submitTime).toString(),
-          FETCH_TIME to (fetchState.fetchCompleteTime - fetchState.responseTime).toString(),
-          TOTAL_TIME to (fetchState.fetchCompleteTime - fetchState.submitTime).toString(),
-          IMAGE_SIZE to byteSize.toString(),
-      )
+  ): Map<String, String>? = mapOf(
+      QUEUE_TIME to (fetchState.responseTime - fetchState.submitTime).toString(),
+      FETCH_TIME to (fetchState.fetchCompleteTime - fetchState.responseTime).toString(),
+      TOTAL_TIME to (fetchState.fetchCompleteTime - fetchState.submitTime).toString(),
+      IMAGE_SIZE to byteSize.toString(),
+  )
 
   protected open fun fetchWithRequest(
       fetchState: OkHttpNetworkFetchState,

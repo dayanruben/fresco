@@ -56,20 +56,19 @@ object DefaultImageFormats {
    * @return all supported default formats
    */
   @JvmField
-  val defaultFormats: List<ImageFormat> =
-      listOf(
-          JPEG,
-          PNG,
-          GIF,
-          BMP,
-          ICO,
-          WEBP_SIMPLE,
-          WEBP_LOSSLESS,
-          WEBP_EXTENDED,
-          WEBP_EXTENDED_WITH_ALPHA,
-          WEBP_ANIMATED,
-          HEIF,
-          BINARY_XML,
-          AVIF,
-      )
+  val defaultFormats: List<ImageFormat> = listOf(
+      JPEG,
+      PNG,
+      GIF,
+      BMP,
+      ICO,
+      WEBP_SIMPLE,
+      WEBP_LOSSLESS,
+      WEBP_EXTENDED,
+      WEBP_EXTENDED_WITH_ALPHA,
+      WEBP_ANIMATED,
+      HEIF,
+      BINARY_XML,
+      AVIF,
+  )
 }

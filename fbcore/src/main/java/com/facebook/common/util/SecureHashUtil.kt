@@ -58,25 +58,24 @@ object SecureHashUtil {
   fun makeMD5Hash(stream: InputStream): String = makeHash(stream, "MD5")
 
   @JvmField
-  val HEX_CHAR_TABLE: ByteArray =
-      byteArrayOf(
-          '0'.code.toByte(),
-          '1'.code.toByte(),
-          '2'.code.toByte(),
-          '3'.code.toByte(),
-          '4'.code.toByte(),
-          '5'.code.toByte(),
-          '6'.code.toByte(),
-          '7'.code.toByte(),
-          '8'.code.toByte(),
-          '9'.code.toByte(),
-          'a'.code.toByte(),
-          'b'.code.toByte(),
-          'c'.code.toByte(),
-          'd'.code.toByte(),
-          'e'.code.toByte(),
-          'f'.code.toByte(),
-      )
+  val HEX_CHAR_TABLE: ByteArray = byteArrayOf(
+      '0'.code.toByte(),
+      '1'.code.toByte(),
+      '2'.code.toByte(),
+      '3'.code.toByte(),
+      '4'.code.toByte(),
+      '5'.code.toByte(),
+      '6'.code.toByte(),
+      '7'.code.toByte(),
+      '8'.code.toByte(),
+      '9'.code.toByte(),
+      'a'.code.toByte(),
+      'b'.code.toByte(),
+      'c'.code.toByte(),
+      'd'.code.toByte(),
+      'e'.code.toByte(),
+      'f'.code.toByte(),
+  )
 
   @JvmStatic
   @Throws(UnsupportedEncodingException::class)

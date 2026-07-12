@@ -292,12 +292,11 @@ class VitoImagePipelineImpl(
         return SmartFetchStrategy.DEFAULT
       }
 
-      val isInDiskCache =
-          isInDiskCacheSync(
-              requestBeforeLayout,
-              config.experimentalDynamicSizeDiskCacheCheckTimeoutMs(),
-              TimeUnit.MILLISECONDS,
-          )
+      val isInDiskCache = isInDiskCacheSync(
+          requestBeforeLayout,
+          config.experimentalDynamicSizeDiskCacheCheckTimeoutMs(),
+          TimeUnit.MILLISECONDS,
+      )
 
       if (isInDiskCache == null) {
         // Disk cache request timed out

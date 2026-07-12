@@ -234,30 +234,29 @@ object SampleInfraFactory {
               { producerContext ->
                 val uri = producerContext.imageRequest.sourceUri
                 val imageUrl = SimpleImageUrl(uri.toString())
-                val fetchConfig =
-                    IgFetchConfig(
-                        fetcherHost = loaderHost,
-                        imageUri = imageUrl,
-                        startScan = 0,
-                        endScan = IgImageInfraConstants.ALL_SCANS,
-                        byteArray = null,
-                        estimatedScansSizesBytes = imageUrl.estimatedScansSizesBytes,
-                        diskCacheKey = uri.toString(),
-                        unsafeConfig = UnsafeImageTaskConfig(),
-                        imageRefreshMaxProgress = 0,
-                        requestPolicy =
-                            HttpRequestPolicy.Builder()
-                                .setRequestType(HttpRequestPolicy.RequestType.Image)
-                                .build(),
-                        failOnErrorHttpResponse = true,
-                        photosQPL = null,
-                        isRequestedByImageView = true,
-                        trafficTokenProvider = NetworkImageLoader.TrafficTokenProvider { null },
-                        origin = "sample_app",
-                        session = session,
-                        enableProgressiveStreaming =
-                            toggles["use_fresco_progressive_rendering"] == true,
-                    )
+                val fetchConfig = IgFetchConfig(
+                    fetcherHost = loaderHost,
+                    imageUri = imageUrl,
+                    startScan = 0,
+                    endScan = IgImageInfraConstants.ALL_SCANS,
+                    byteArray = null,
+                    estimatedScansSizesBytes = imageUrl.estimatedScansSizesBytes,
+                    diskCacheKey = uri.toString(),
+                    unsafeConfig = UnsafeImageTaskConfig(),
+                    imageRefreshMaxProgress = 0,
+                    requestPolicy =
+                        HttpRequestPolicy.Builder()
+                            .setRequestType(HttpRequestPolicy.RequestType.Image)
+                            .build(),
+                    failOnErrorHttpResponse = true,
+                    photosQPL = null,
+                    isRequestedByImageView = true,
+                    trafficTokenProvider = NetworkImageLoader.TrafficTokenProvider { null },
+                    origin = "sample_app",
+                    session = session,
+                    enableProgressiveStreaming =
+                        toggles["use_fresco_progressive_rendering"] == true,
+                )
                 IgUnifiedImageNetworkLayerImpl(NetworkImageLoaderFactoryImpl, fetchConfig)
               }
           builder.setNetworkFetcher(UnifiedImageNetworkLayerAdapter(networkLayerFactory))

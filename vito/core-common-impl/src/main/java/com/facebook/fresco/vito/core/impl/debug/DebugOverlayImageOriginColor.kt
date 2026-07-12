@@ -12,15 +12,14 @@ import androidx.annotation.ColorInt
 
 object DebugOverlayImageOriginColor {
 
-  private val imageOriginColorMap: Map<String, Int> =
-      hashMapOf(
-          "unknown" to Color.GRAY,
-          "network" to Color.RED,
-          "disk" to Color.YELLOW,
-          "memory_encoded" to Color.YELLOW,
-          "memory_bitmap" to Color.GREEN,
-          "local" to Color.GREEN,
-      )
+  private val imageOriginColorMap: Map<String, Int> = hashMapOf(
+      "unknown" to Color.GRAY,
+      "network" to Color.RED,
+      "disk" to Color.YELLOW,
+      "memory_encoded" to Color.YELLOW,
+      "memory_bitmap" to Color.GREEN,
+      "local" to Color.GREEN,
+  )
 
   @JvmStatic
   @ColorInt

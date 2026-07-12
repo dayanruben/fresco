@@ -610,20 +610,19 @@ open class FrescoController2Impl(
         imageSourceExtras =
             vitoImageRequest.extras[HasExtraData.KEY_IMAGE_SOURCE_EXTRAS] as? Map<String, Any>
       }
-      val extras =
-          obtainExtras(
-              COMPONENT_EXTRAS,
-              SHORTCUT_EXTRAS,
-              dataSource?.extras,
-              imageSourceExtras,
-              drawable.viewportDimensions,
-              drawable.actualImageScaleType,
-              drawable.actualImageFocusPoint,
-              imageExtras,
-              drawable.callerContext,
-              logWithHighSamplingRate,
-              sourceUri,
-          )
+      val extras = obtainExtras(
+          COMPONENT_EXTRAS,
+          SHORTCUT_EXTRAS,
+          dataSource?.extras,
+          imageSourceExtras,
+          drawable.viewportDimensions,
+          drawable.actualImageScaleType,
+          drawable.actualImageFocusPoint,
+          imageExtras,
+          drawable.callerContext,
+          logWithHighSamplingRate,
+          sourceUri,
+      )
       extras.smartUrlFetchStrategy = imageRequest.extras[HasExtraData.KEY_SF_FETCH_STRATEGY]
       extras.smartUrlModificationResult = imageRequest.extras[HasExtraData.KEY_SF_MOD_RESULT]
       extras.smartOriginalUri = imageRequest.extras[HasExtraData.KEY_SF_ORIGINAL_URL] as? Uri

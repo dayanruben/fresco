@@ -67,15 +67,14 @@ class ViewTypeScreen(
   private var cornerRadiusInput: EditText? = null
 
   private val presets = ImageDisplayConfig.presetsForViewType(viewType)
-  private val imageTypes =
-      arrayOf(
-          ImageType.UNIDENTIFIED,
-          ImageType.GRID,
-          ImageType.PROFILE_CIRCULAR,
-          ImageType.VIDEO_COVER,
-          ImageType.ADS_NON_9_16,
-          ImageType.ADS_IAB_SCREENSHOT,
-      )
+  private val imageTypes = arrayOf(
+      ImageType.UNIDENTIFIED,
+      ImageType.GRID,
+      ImageType.PROFILE_CIRCULAR,
+      ImageType.VIDEO_COVER,
+      ImageType.ADS_NON_9_16,
+      ImageType.ADS_IAB_SCREENSHOT,
+  )
   private val sampleSizes = arrayOf(1, 2, 4, 8)
 
   private var loadStartTimeNs = 0L

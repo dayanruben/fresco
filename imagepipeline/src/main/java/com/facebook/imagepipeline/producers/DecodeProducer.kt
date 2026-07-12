@@ -261,32 +261,30 @@ class DecodeProducer(
             newStatus = status or Consumer.IS_RESIZING_DONE
           }
         } catch (e: Exception) {
-          val extraMap =
-              getExtraMap(
-                  image,
-                  queueTime,
-                  quality,
-                  isLast,
-                  imageFormatStr,
-                  encodedImageSize,
-                  requestedSizeStr,
-                  sampleSize,
-              )
+          val extraMap = getExtraMap(
+              image,
+              queueTime,
+              quality,
+              isLast,
+              imageFormatStr,
+              encodedImageSize,
+              requestedSizeStr,
+              sampleSize,
+          )
           producerListener.onProducerFinishWithFailure(producerContext, PRODUCER_NAME, e, extraMap)
           handleError(e)
           return
         }
-        val extraMap =
-            getExtraMap(
-                image,
-                queueTime,
-                quality,
-                isLast,
-                imageFormatStr,
-                encodedImageSize,
-                requestedSizeStr,
-                sampleSize,
-            )
+        val extraMap = getExtraMap(
+            image,
+            queueTime,
+            quality,
+            isLast,
+            imageFormatStr,
+            encodedImageSize,
+            requestedSizeStr,
+            sampleSize,
+        )
         producerListener.onProducerFinishWithSuccess(producerContext, PRODUCER_NAME, extraMap)
         setImageExtras(encodedImage, image, lastScheduledScanNumber)
         handleResult(image, newStatus, encodedImage)

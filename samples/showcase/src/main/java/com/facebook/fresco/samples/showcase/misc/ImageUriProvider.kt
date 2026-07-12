@@ -265,30 +265,28 @@ class ImageUriProvider constructor(context: Context) {
     private const val RANDOM_URI_PATTERN_S = "https://picsum.photos/400/400?random=%d"
     private const val RANDOM_URI_PATTERN_M = "https://picsum.photos/800/800?random=%d"
 
-    private val SAMPLE_URIS_LANDSCAPE =
-        arrayOf(
-            "https://frescolib.org/static/sample-images/animal_a_%s.jpg",
-            "https://frescolib.org/static/sample-images/animal_b_%s.jpg",
-            "https://frescolib.org/static/sample-images/animal_c_%s.jpg",
-            "https://frescolib.org/static/sample-images/animal_e_%s.jpg",
-            "https://frescolib.org/static/sample-images/animal_f_%s.jpg",
-            "https://frescolib.org/static/sample-images/animal_g_%s.jpg",
-        )
+    private val SAMPLE_URIS_LANDSCAPE = arrayOf(
+        "https://frescolib.org/static/sample-images/animal_a_%s.jpg",
+        "https://frescolib.org/static/sample-images/animal_b_%s.jpg",
+        "https://frescolib.org/static/sample-images/animal_c_%s.jpg",
+        "https://frescolib.org/static/sample-images/animal_e_%s.jpg",
+        "https://frescolib.org/static/sample-images/animal_f_%s.jpg",
+        "https://frescolib.org/static/sample-images/animal_g_%s.jpg",
+    )
 
     private val SAMPLE_URIS_PORTRAIT =
         arrayOf("https://frescolib.org/static/sample-images/animal_d_%s.jpg")
 
     private val SAMPLE_URI_PJPEG_SLOW = "http://pooyak.com/p/progjpeg/jpegload.cgi?o=1"
 
-    private val SAMPLE_URIS_LANDSCAPE_PNG =
-        arrayOf(
-            "https://frescolib.org/static/sample-images/animal_a.png",
-            "https://frescolib.org/static/sample-images/animal_b.png",
-            "https://frescolib.org/static/sample-images/animal_c.png",
-            "https://frescolib.org/static/sample-images/animal_e.png",
-            "https://frescolib.org/static/sample-images/animal_f.png",
-            "https://frescolib.org/static/sample-images/animal_g.png",
-        )
+    private val SAMPLE_URIS_LANDSCAPE_PNG = arrayOf(
+        "https://frescolib.org/static/sample-images/animal_a.png",
+        "https://frescolib.org/static/sample-images/animal_b.png",
+        "https://frescolib.org/static/sample-images/animal_c.png",
+        "https://frescolib.org/static/sample-images/animal_e.png",
+        "https://frescolib.org/static/sample-images/animal_f.png",
+        "https://frescolib.org/static/sample-images/animal_g.png",
+    )
 
     private val SAMPLE_URIS_PORTRAIT_PNG =
         arrayOf("https://frescolib.org/static/sample-images/animal_d.png")
@@ -307,12 +305,11 @@ class ImageUriProvider constructor(context: Context) {
     private val SAMPLE_URI_GIF_WITH_PAUSE_PATTERN =
         "https://frescolib.org/static/sample-images/fresco_logo_anim_full_frames_with_pause_%s.gif"
 
-    private val SAMPLE_URIS_GIFS =
-        arrayOf(
-            "https://media2.giphy.com/media/3oge84qhopFbFFkwec/giphy.gif",
-            "https://media3.giphy.com/media/uegrGBitPHtKM/giphy.gif",
-            "https://media0.giphy.com/media/SWd9mTHEMIxQ4/giphy.gif",
-        )
+    private val SAMPLE_URIS_GIFS = arrayOf(
+        "https://media2.giphy.com/media/3oge84qhopFbFFkwec/giphy.gif",
+        "https://media3.giphy.com/media/uegrGBitPHtKM/giphy.gif",
+        "https://media0.giphy.com/media/SWd9mTHEMIxQ4/giphy.gif",
+    )
 
     private val SAMPLE_URI_KEYFRAMES =
         "https://frescolib.org/static/sample-images/animation.keyframes"

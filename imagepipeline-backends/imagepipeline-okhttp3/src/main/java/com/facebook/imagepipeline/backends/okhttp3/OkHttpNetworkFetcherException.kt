@@ -17,10 +17,11 @@ class OkHttpNetworkFetcherException(
 
   companion object {
     @JvmStatic
-    fun fromResponse(response: Response): OkHttpNetworkFetcherException =
-        OkHttpNetworkFetcherException(
-            response.networkResponse()?.code(),
-            response.networkResponse()?.headers(),
-        )
+    fun fromResponse(
+        response: Response
+    ): OkHttpNetworkFetcherException = OkHttpNetworkFetcherException(
+        response.networkResponse()?.code(),
+        response.networkResponse()?.headers(),
+    )
   }
 }

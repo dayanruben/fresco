@@ -42,15 +42,14 @@ class AnimatedFrameCacheTest {
     memoryTrimmableRegistry = mock()
     memoryCacheParamsSupplier = mock()
 
-    val params: MemoryCacheParams =
-        MemoryCacheParams(
-            4 * ByteConstants.MB,
-            256,
-            Int.Companion.MAX_VALUE,
-            Int.Companion.MAX_VALUE,
-            Int.Companion.MAX_VALUE,
-            TimeUnit.MINUTES.toMillis(5),
-        )
+    val params: MemoryCacheParams = MemoryCacheParams(
+        4 * ByteConstants.MB,
+        256,
+        Int.Companion.MAX_VALUE,
+        Int.Companion.MAX_VALUE,
+        Int.Companion.MAX_VALUE,
+        TimeUnit.MINUTES.toMillis(5),
+    )
     whenever(memoryCacheParamsSupplier.get()).thenReturn(params)
     val countingMemoryCache: CountingMemoryCache<CacheKey, CloseableImage> =
         CountingLruBitmapMemoryCacheFactory()

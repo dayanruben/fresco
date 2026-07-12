@@ -108,13 +108,12 @@ class DiskCacheWriteProducer(
       val imageRequest = producerContext.imageRequest
       val cacheKey = cacheKeyFactory.getEncodedCacheKey(imageRequest, producerContext.callerContext)
       val diskCachesStore = diskCachesStoreSupplier.get()
-      val bufferedDiskCache =
-          chooseDiskCacheForRequest(
-              imageRequest,
-              diskCachesStore.smallImageBufferedDiskCache,
-              diskCachesStore.mainBufferedDiskCache,
-              diskCachesStore.dynamicBufferedDiskCaches,
-          )
+      val bufferedDiskCache = chooseDiskCacheForRequest(
+          imageRequest,
+          diskCachesStore.smallImageBufferedDiskCache,
+          diskCachesStore.mainBufferedDiskCache,
+          diskCachesStore.dynamicBufferedDiskCaches,
+      )
       if (bufferedDiskCache == null) {
         producerContext.producerListener.onProducerFinishWithFailure(
             producerContext,

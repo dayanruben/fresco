@@ -209,18 +209,17 @@ object FrescoVitoImage2Spec {
       }
       is SmartFetchStrategy -> {
         if (viewport != null) {
-          val viewportAwareImageRequest =
-              createVitoImageRequest(
-                  c,
-                  callerContext,
-                  imageSource,
-                  uri,
-                  uriString,
-                  imageOptions,
-                  logWithHighSamplingRate,
-                  viewport.toRect(),
-                  result,
-              )
+          val viewportAwareImageRequest = createVitoImageRequest(
+              c,
+              callerContext,
+              imageSource,
+              uri,
+              uriString,
+              imageOptions,
+              logWithHighSamplingRate,
+              viewport.toRect(),
+              result,
+          )
           maybePrefetchInOnPrepare(
               prefetch,
               prefetchDataSource,
@@ -269,16 +268,15 @@ object FrescoVitoImage2Spec {
           when {
             requestWithLayout != null -> requestWithLayout
             requestBeforeLayout != null -> {
-              val request =
-                  VitoImageRequest(
-                      requestBeforeLayout.resources,
-                      requestBeforeLayout.imageSource,
-                      requestBeforeLayout.imageOptions,
-                      requestBeforeLayout.logWithHighSamplingRate,
-                      requestBeforeLayout.finalImageRequest,
-                      requestBeforeLayout.finalImageCacheKey,
-                      requestBeforeLayout.extras,
-                  )
+              val request = VitoImageRequest(
+                  requestBeforeLayout.resources,
+                  requestBeforeLayout.imageSource,
+                  requestBeforeLayout.imageOptions,
+                  requestBeforeLayout.logWithHighSamplingRate,
+                  requestBeforeLayout.finalImageRequest,
+                  requestBeforeLayout.finalImageCacheKey,
+                  requestBeforeLayout.extras,
+              )
               request.putExtra(HasExtraData.KEY_SF_FETCH_STRATEGY, fetchStrategy)
               request
             }
@@ -523,18 +521,17 @@ object FrescoVitoImage2Spec {
 
     when (fetchStrategy) {
       is SmartFetchStrategy -> {
-        val vitoImageRequest =
-            createVitoImageRequest(
-                c,
-                callerContext,
-                imageSource,
-                uri,
-                uriString,
-                imageOptions,
-                logWithHighSamplingRate,
-                viewportRect,
-                fetchStrategy,
-            )
+        val vitoImageRequest = createVitoImageRequest(
+            c,
+            callerContext,
+            imageSource,
+            uri,
+            uriString,
+            imageOptions,
+            logWithHighSamplingRate,
+            viewportRect,
+            fetchStrategy,
+        )
 
         requestWithLayout.set(vitoImageRequest)
 

@@ -89,15 +89,14 @@ class SampleDownloader : Downloader() {
             return@execute
           }
 
-          val responseInfo =
-              AsyncHttpResponseInfo(
-                  responseCode,
-                  connection.responseMessage,
-                  requestId,
-                  connection.headerFields?.flatMap { (key, values) ->
-                    if (key != null) values.map { Header(key, it) } else emptyList()
-                  } ?: emptyList(),
-              )
+          val responseInfo = AsyncHttpResponseInfo(
+              responseCode,
+              connection.responseMessage,
+              requestId,
+              connection.headerFields?.flatMap { (key, values) ->
+                if (key != null) values.map { Header(key, it) } else emptyList()
+              } ?: emptyList(),
+          )
 
           callback.onResponseStarted(responseInfo)
 

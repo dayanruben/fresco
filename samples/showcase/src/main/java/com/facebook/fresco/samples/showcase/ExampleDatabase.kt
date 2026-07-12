@@ -28,92 +28,91 @@ object ExampleDatabase {
   val welcome = ExampleItem("Welcome") { WelcomeFragment() }
   val settings = ExampleItem("Settings", "Settings") { SettingsFragment() }
 
-  val examples =
-      listOf(
-          ExampleCategory(
-              "Image Pipeline",
-              listOf(
-                  ExampleItem("Downsample Modes") { ImagePipelineDownsampleFragment() },
-                  ExampleItem("Notifications") { ImagePipelineNotificationFragment() },
-                  ExampleItem("Post-Processor") { ImagePipelinePostProcessorFragment() },
-                  ExampleItem("Prefetch") { ImagePipelinePrefetchFragment() },
-                  ExampleItem("Resizing") { ImagePipelineResizingFragment() },
-                  ExampleItem("Qualified Resource URI") {
-                    ImagePipelineQualifiedResourceFragment()
-                  },
-                  ExampleItem("Partial Image Loading") { PartialRequestFragment() },
-                  ExampleItem("Platform Bitmap Factory") { ImagePipelineBitmapFactoryFragment() },
-                  ExampleItem("Region Decoding") { ImagePipelineRegionDecodingFragment() },
-              ),
+  val examples = listOf(
+      ExampleCategory(
+          "Image Pipeline",
+          listOf(
+              ExampleItem("Downsample Modes") { ImagePipelineDownsampleFragment() },
+              ExampleItem("Notifications") { ImagePipelineNotificationFragment() },
+              ExampleItem("Post-Processor") { ImagePipelinePostProcessorFragment() },
+              ExampleItem("Prefetch") { ImagePipelinePrefetchFragment() },
+              ExampleItem("Resizing") { ImagePipelineResizingFragment() },
+              ExampleItem("Qualified Resource URI") {
+                ImagePipelineQualifiedResourceFragment()
+              },
+              ExampleItem("Partial Image Loading") { PartialRequestFragment() },
+              ExampleItem("Platform Bitmap Factory") { ImagePipelineBitmapFactoryFragment() },
+              ExampleItem("Region Decoding") { ImagePipelineRegionDecodingFragment() },
           ),
-          ExampleCategory(
-              "Image Formats",
-              listOf(
-                  ExampleItem("Progressive JPEG") { ImageFormatProgressiveJpegFragment() },
-                  ExampleItem("GIF") { ImageFormatGifFragment() },
-                  ExampleItem("WebP") { ImageFormatWebpFragment() },
-                  ExampleItem("Data URI") { ImageFormatDataUriFragment() },
-                  ExampleItem("XML") { ImageFormatXmlFragment() },
-              ),
+      ),
+      ExampleCategory(
+          "Image Formats",
+          listOf(
+              ExampleItem("Progressive JPEG") { ImageFormatProgressiveJpegFragment() },
+              ExampleItem("GIF") { ImageFormatGifFragment() },
+              ExampleItem("WebP") { ImageFormatWebpFragment() },
+              ExampleItem("Data URI") { ImageFormatDataUriFragment() },
+              ExampleItem("XML") { ImageFormatXmlFragment() },
           ),
-          ExampleCategory(
-              "Fresco Vito",
-              listOf(
-                  ExampleItem(
-                      "Vito Litho: Simple",
-                      FrescoVitoLithoSimpleExample,
-                      "Simple Fresco Vito Litho component.",
-                  ),
-                  ExampleItem("Vito Litho: Region decoding") {
-                    FrescoVitoLithoRegionDecodeFragment()
-                  },
-                  ExampleItem("Vito Litho: Image Options configurator") {
-                    FrescoVitoLithoImageOptionsConfigFragment()
-                  },
-                  ExampleItem(
-                      "Vito Litho: Listener",
-                      FrescoVitoLithoListenerExample,
-                      "Vito Litho component with listener.",
-                  ),
-                  ExampleItem("Scale Type") { VitoScaleTypeFragment() },
-                  ExampleItem("Rotation") { VitoRotationFragment() },
-                  ExampleItem("Vito View: Simple") { VitoViewSimpleFragment() },
-                  ExampleItem("Vito View: Simple 2") { VitoSimpleFragment() },
-                  ExampleItem("Vito View: Recycler") { VitoViewRecyclerFragment() },
-                  ExampleItem("Vito View: Prefetch") { VitoViewPrefetchFragment() },
-                  ExampleItem("Vito View: Kotlin Extensions") { VitoViewKtxFragment() },
-                  ExampleItem(
-                      "Vito Litho: Slideshow",
-                      LithoSlideshowSample(),
-                      "Litho slideshow that fades between images",
-                  ),
-                  ExampleItem(
-                      "Vito Litho: NinePatch",
-                      LithoNinePatchSample(),
-                      "Litho nine patch example",
-                  ),
-                  ExampleItem("Vito Text Span") { VitoSpanFragment() },
-                  ExampleItem(
-                      "Vito Litho DrawableImageSource",
-                      FrescoVitoLithoDrawableImageSourceExample,
-                  ),
-                  ExampleItem("Multi URI") { MultiUriFragment() },
-                  ExampleItem("Placeholder, Progress, Failure") { ImageLayersFragment() },
-                  ExampleItem("Rounded Corners") { VitoRoundedCornersFragment() },
-                  ExampleItem("Image Transition") { VitoTransitionFragment() },
-                  ExampleItem("Retaining Data Source Supplier") {
-                    RetainingDataSourceSupplierFragment()
-                  },
+      ),
+      ExampleCategory(
+          "Fresco Vito",
+          listOf(
+              ExampleItem(
+                  "Vito Litho: Simple",
+                  FrescoVitoLithoSimpleExample,
+                  "Simple Fresco Vito Litho component.",
               ),
-          ),
-          ExampleCategory(
-              "Vito Renderer",
-              listOf(
-                  ExampleItem("Renderer: Shapes") { RendererShapeExampleFragment() },
-                  ExampleItem("Renderer: Color Filters") { RendererColorFilterExampleFragment() },
-                  ExampleItem("Renderer: Fading") { RendererFadeExampleFragment() },
-                  ExampleItem("Layers: Scaling") { VitoLayerExample() },
+              ExampleItem("Vito Litho: Region decoding") {
+                FrescoVitoLithoRegionDecodeFragment()
+              },
+              ExampleItem("Vito Litho: Image Options configurator") {
+                FrescoVitoLithoImageOptionsConfigFragment()
+              },
+              ExampleItem(
+                  "Vito Litho: Listener",
+                  FrescoVitoLithoListenerExample,
+                  "Vito Litho component with listener.",
               ),
+              ExampleItem("Scale Type") { VitoScaleTypeFragment() },
+              ExampleItem("Rotation") { VitoRotationFragment() },
+              ExampleItem("Vito View: Simple") { VitoViewSimpleFragment() },
+              ExampleItem("Vito View: Simple 2") { VitoSimpleFragment() },
+              ExampleItem("Vito View: Recycler") { VitoViewRecyclerFragment() },
+              ExampleItem("Vito View: Prefetch") { VitoViewPrefetchFragment() },
+              ExampleItem("Vito View: Kotlin Extensions") { VitoViewKtxFragment() },
+              ExampleItem(
+                  "Vito Litho: Slideshow",
+                  LithoSlideshowSample(),
+                  "Litho slideshow that fades between images",
+              ),
+              ExampleItem(
+                  "Vito Litho: NinePatch",
+                  LithoNinePatchSample(),
+                  "Litho nine patch example",
+              ),
+              ExampleItem("Vito Text Span") { VitoSpanFragment() },
+              ExampleItem(
+                  "Vito Litho DrawableImageSource",
+                  FrescoVitoLithoDrawableImageSourceExample,
+              ),
+              ExampleItem("Multi URI") { MultiUriFragment() },
+              ExampleItem("Placeholder, Progress, Failure") { ImageLayersFragment() },
+              ExampleItem("Rounded Corners") { VitoRoundedCornersFragment() },
+              ExampleItem("Image Transition") { VitoTransitionFragment() },
+              ExampleItem("Retaining Data Source Supplier") {
+                RetainingDataSourceSupplierFragment()
+              },
           ),
-      )
+      ),
+      ExampleCategory(
+          "Vito Renderer",
+          listOf(
+              ExampleItem("Renderer: Shapes") { RendererShapeExampleFragment() },
+              ExampleItem("Renderer: Color Filters") { RendererColorFilterExampleFragment() },
+              ExampleItem("Renderer: Fading") { RendererFadeExampleFragment() },
+              ExampleItem("Layers: Scaling") { VitoLayerExample() },
+          ),
+      ),
+  )
 }

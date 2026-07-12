@@ -24,11 +24,10 @@ class LocalResourceFetchProducer(
 ) : LocalFetchProducer(executor, pooledByteBufferFactory) {
 
   @Throws(IOException::class)
-  override fun getEncodedImage(imageRequest: ImageRequest): EncodedImage? =
-      getEncodedImage(
-          resources.openRawResource(getResourceId(imageRequest)),
-          getLength(imageRequest),
-      )
+  override fun getEncodedImage(imageRequest: ImageRequest): EncodedImage? = getEncodedImage(
+      resources.openRawResource(getResourceId(imageRequest)),
+      getLength(imageRequest),
+  )
 
   private fun getLength(imageRequest: ImageRequest): Int {
     var fd: AssetFileDescriptor? = null

@@ -19,11 +19,10 @@ class LocalFileFetchProducer(executor: Executor, pooledByteBufferFactory: Pooled
     LocalFetchProducer(executor, pooledByteBufferFactory) {
 
   @Throws(IOException::class)
-  override fun getEncodedImage(imageRequest: ImageRequest): EncodedImage? =
-      getEncodedImage(
-          FileInputStream(imageRequest.sourceFile.toString()),
-          imageRequest.sourceFile.length().toInt(),
-      )
+  override fun getEncodedImage(imageRequest: ImageRequest): EncodedImage? = getEncodedImage(
+      FileInputStream(imageRequest.sourceFile.toString()),
+      imageRequest.sourceFile.length().toInt(),
+  )
 
   override fun getProducerName(): String = PRODUCER_NAME
 

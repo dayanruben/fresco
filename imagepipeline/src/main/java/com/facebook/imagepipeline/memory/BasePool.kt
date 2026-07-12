@@ -597,14 +597,13 @@ abstract class BasePool<V : Any>(
     return newBucket
   }
 
-  open fun newBucket(bucketedSize: Int): Bucket<V> =
-      Bucket(
-          /*itemSize*/
-          getSizeInBytes(bucketedSize), /*maxLength*/
-          Int.MAX_VALUE, /*inUseLength*/
-          0,
-          poolParams.fixBucketsReinitialization,
-      )
+  open fun newBucket(bucketedSize: Int): Bucket<V> = Bucket(
+      /*itemSize*/
+      getSizeInBytes(bucketedSize), /*maxLength*/
+      Int.MAX_VALUE, /*inUseLength*/
+      0,
+      poolParams.fixBucketsReinitialization,
+  )
 
   /** Simple 'debug' logging of stats. WARNING: The caller is responsible for synchronization */
   @SuppressLint("InvalidAccessToGuardedField")

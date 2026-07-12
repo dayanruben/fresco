@@ -137,12 +137,11 @@ open class HierarcherImpl(private val drawableFactory: ImageOptionsDrawableFacto
       imageOptions: ImageOptions,
       callerContext: Any?,
   ): ForwardingDrawable {
-    val wrapper =
-        ScaleTypeDrawable(
-            NopDrawable,
-            imageOptions.actualImageScaleType,
-            imageOptions.actualImageFocusPoint,
-        )
+    val wrapper = ScaleTypeDrawable(
+        NopDrawable,
+        imageOptions.actualImageScaleType,
+        imageOptions.actualImageFocusPoint,
+    )
     imageOptions.actualImageColorFilter?.let(wrapper::setColorFilter)
     return wrapper
   }

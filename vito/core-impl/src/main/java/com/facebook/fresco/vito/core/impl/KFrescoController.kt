@@ -102,15 +102,14 @@ class KFrescoController(
   override fun <T> createDrawable(uiFramework: String?): T
       where T : Drawable, T : FrescoDrawableInterface {
     traceSection("KFrescoController#createDrawable") {
-      val drawable =
-          KFrescoVitoDrawable(
-              imagePerfListener,
-              config.experimentalResetVitoImageRequestListener(),
-              config.experimentalResetLocalVitoImageRequestListener(),
-              config.experimentalResetLocalImagePerfStateListener(),
-              config.experimentalResetControllerListener2(),
-              config.experimentalOptimizeAlphaHandling(),
-          )
+      val drawable = KFrescoVitoDrawable(
+          imagePerfListener,
+          config.experimentalResetVitoImageRequestListener(),
+          config.experimentalResetLocalVitoImageRequestListener(),
+          config.experimentalResetLocalImagePerfStateListener(),
+          config.experimentalResetControllerListener2(),
+          config.experimentalOptimizeAlphaHandling(),
+      )
       drawable.uiFramework = uiFramework
       imagePerfLoggingListenerSupplier
           ?.get()

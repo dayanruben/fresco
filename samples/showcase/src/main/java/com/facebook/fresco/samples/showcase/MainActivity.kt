@@ -45,20 +45,16 @@ class MainActivity : AppCompatActivity() {
 
   @get:SuppressLint("InlinedApi")
   private val colorModeOptions: Pair<List<Pair<String, Int>>, String>
-    get() =
-        Pair(
-            buildList {
-              add(getString(R.string.color_mode_option_normal) to ActivityInfo.COLOR_MODE_DEFAULT)
-              add(
-                  getString(R.string.color_mode_option_p3) to
-                      ActivityInfo.COLOR_MODE_WIDE_COLOR_GAMUT
-              )
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                add(getString(R.string.color_mode_option_hdr) to ActivityInfo.COLOR_MODE_HDR)
-              }
-            },
-            getString(R.string.color_mode_group_window),
-        )
+    get() = Pair(
+        buildList {
+          add(getString(R.string.color_mode_option_normal) to ActivityInfo.COLOR_MODE_DEFAULT)
+          add(getString(R.string.color_mode_option_p3) to ActivityInfo.COLOR_MODE_WIDE_COLOR_GAMUT)
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            add(getString(R.string.color_mode_option_hdr) to ActivityInfo.COLOR_MODE_HDR)
+          }
+        },
+        getString(R.string.color_mode_group_window),
+    )
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -66,14 +62,13 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
     setSupportActionBar(toolbar)
 
-    val toggle =
-        ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close,
-        )
+    val toggle = ActionBarDrawerToggle(
+        this,
+        drawerLayout,
+        toolbar,
+        R.string.navigation_drawer_open,
+        R.string.navigation_drawer_close,
+    )
     drawerLayout.addDrawerListener(toggle)
     toggle.syncState()
 
@@ -135,11 +130,10 @@ class MainActivity : AppCompatActivity() {
       colorModeItem.isVisible = false
     }
     // the support toolbar should probably do this by default
-    val styles =
-        obtainStyledAttributes(
-            R.style.AppTheme_Toolbar,
-            intArrayOf(android.R.attr.colorControlNormal),
-        )
+    val styles = obtainStyledAttributes(
+        R.style.AppTheme_Toolbar,
+        intArrayOf(android.R.attr.colorControlNormal),
+    )
     try {
       val tintColor = styles.getColor(0, Color.BLACK)
       for (i in 0 until menu.size()) {

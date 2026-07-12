@@ -297,14 +297,13 @@ class DefaultDebugOverlayFactory2Test {
   fun testSetData_withImageRequestAndExtendedInfo_addsScaleType() {
     val factory = createFactory(showExtendedInformation = true)
     val imageOptions = ImageOptions.defaults()
-    val imageRequest =
-        VitoImageRequest(
-            resources = mock(),
-            imageSource = mock(),
-            imageOptions = imageOptions,
-            finalImageRequest = null,
-            finalImageCacheKey = null,
-        )
+    val imageRequest = VitoImageRequest(
+        resources = mock(),
+        imageSource = mock(),
+        imageOptions = imageOptions,
+        finalImageRequest = null,
+        finalImageCacheKey = null,
+    )
     whenever(frescoDrawable2.imageRequest).thenReturn(imageRequest)
     factory.callSetData(overlay, frescoDrawable2, null)
     assertEquals(

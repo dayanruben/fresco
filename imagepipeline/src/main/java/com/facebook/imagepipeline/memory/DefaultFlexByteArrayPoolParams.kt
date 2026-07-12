@@ -34,16 +34,15 @@ object DefaultFlexByteArrayPoolParams {
   }
 
   @JvmStatic
-  fun get(): PoolParams =
-      PoolParams(
-          /* bucketSizes */
-          generateBuckets(
-              DEFAULT_MIN_BYTE_ARRAY_SIZE,
-              DEFAULT_MAX_BYTE_ARRAY_SIZE,
-              DEFAULT_MAX_NUM_THREADS,
-          ), /* minBucketSize */
-          DEFAULT_MIN_BYTE_ARRAY_SIZE, /* maxBucketSize */
-          DEFAULT_MAX_BYTE_ARRAY_SIZE, /* maxNumThreads */
+  fun get(): PoolParams = PoolParams(
+      /* bucketSizes */
+      generateBuckets(
+          DEFAULT_MIN_BYTE_ARRAY_SIZE,
+          DEFAULT_MAX_BYTE_ARRAY_SIZE,
           DEFAULT_MAX_NUM_THREADS,
-      )
+      ), /* minBucketSize */
+      DEFAULT_MIN_BYTE_ARRAY_SIZE, /* maxBucketSize */
+      DEFAULT_MAX_BYTE_ARRAY_SIZE, /* maxNumThreads */
+      DEFAULT_MAX_NUM_THREADS,
+  )
 }

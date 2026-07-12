@@ -162,12 +162,11 @@ class MainActivity : Activity() {
     // ── View Types ───────────────────────────────────────────────────────
     menuList.addView(sectionHeader("VIEW TYPES"))
 
-    val viewTypes =
-        listOf(
-            ViewType.IG_IMAGE_VIEW,
-            ViewType.CIRCULAR_IMAGE_VIEW,
-            ViewType.ROUNDED_CORNER_IMAGE_VIEW,
-        )
+    val viewTypes = listOf(
+        ViewType.IG_IMAGE_VIEW,
+        ViewType.CIRCULAR_IMAGE_VIEW,
+        ViewType.ROUNDED_CORNER_IMAGE_VIEW,
+    )
     viewTypes.forEachIndexed { index, viewType ->
       val item = buildMenuItem(viewType)
       if (index == 0) highlightMenuItem(item)

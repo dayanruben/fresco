@@ -154,14 +154,13 @@ class ImagePipeline(
       uiComponentId: String?,
   ): Supplier<DataSource<CloseableReference<CloseableImage>>> {
     return object : Supplier<DataSource<CloseableReference<CloseableImage>>> {
-      override fun get() =
-          fetchDecodedImage(
-              imageRequest,
-              callerContext,
-              requestLevel,
-              requestListener,
-              uiComponentId,
-          )
+      override fun get() = fetchDecodedImage(
+          imageRequest,
+          callerContext,
+          requestLevel,
+          requestListener,
+          uiComponentId,
+      )
 
       override fun toString(): String =
           Objects.toStringHelper(this).add("uri", imageRequest.sourceUri).toString()
@@ -1096,16 +1095,15 @@ class ImagePipeline(
       callerContext: Any?,
       requestListener: RequestListener?,
       uiComponentId: String?,
-  ): DataSource<CloseableReference<T>> =
-      submitFetchRequest(
-          producerSequence,
-          imageRequest,
-          lowestPermittedRequestLevelOnSubmit,
-          callerContext,
-          requestListener,
-          uiComponentId,
-          null,
-      )
+  ): DataSource<CloseableReference<T>> = submitFetchRequest(
+      producerSequence,
+      imageRequest,
+      lowestPermittedRequestLevelOnSubmit,
+      callerContext,
+      requestListener,
+      uiComponentId,
+      null,
+  )
 
   private fun <T> submitFetchRequest(
       producerSequence: Producer<CloseableReference<T>>,
@@ -1117,11 +1115,10 @@ class ImagePipeline(
       extras: Map<String, *>?,
   ): DataSource<CloseableReference<T>> =
       traceSection("ImagePipeline#submitFetchRequest") {
-        val requestListener2 =
-            InternalRequestListener(
-                getRequestListenerForRequest(imageRequest, requestListener),
-                requestListener2,
-            )
+        val requestListener2 = InternalRequestListener(
+            getRequestListenerForRequest(imageRequest, requestListener),
+            requestListener2,
+        )
         callerContextVerifier?.verifyCallerContext(callerContext, false)
         return try {
           val lowestPermittedRequestLevel =
@@ -1129,20 +1126,19 @@ class ImagePipeline(
                   imageRequest.lowestPermittedRequestLevel,
                   lowestPermittedRequestLevelOnSubmit,
               )
-          val settableProducerContext =
-              SettableProducerContext(
-                  imageRequest,
-                  generateUniqueFutureId(),
-                  uiComponentId,
-                  requestListener2,
-                  callerContext,
-                  lowestPermittedRequestLevel, /* isPrefetch */
-                  false,
-                  imageRequest.progressiveRenderingEnabled ||
-                      !UriUtil.isNetworkUri(imageRequest.sourceUri),
-                  imageRequest.priority,
-                  config,
-              )
+          val settableProducerContext = SettableProducerContext(
+              imageRequest,
+              generateUniqueFutureId(),
+              uiComponentId,
+              requestListener2,
+              callerContext,
+              lowestPermittedRequestLevel, /* isPrefetch */
+              false,
+              imageRequest.progressiveRenderingEnabled ||
+                  !UriUtil.isNetworkUri(imageRequest.sourceUri),
+              imageRequest.priority,
+              config,
+          )
           settableProducerContext.putExtras(extras)
           CloseableProducerToDataSourceAdapter.create(
               producerSequence,
@@ -1181,11 +1177,10 @@ class ImagePipeline(
       requestListener: RequestListener?,
       extras: Map<String, *>?,
   ): DataSource<Void?> {
-    val requestListener2 =
-        InternalRequestListener(
-            getRequestListenerForRequest(imageRequest, requestListener),
-            requestListener2,
-        )
+    val requestListener2 = InternalRequestListener(
+        getRequestListenerForRequest(imageRequest, requestListener),
+        requestListener2,
+    )
     callerContextVerifier?.verifyCallerContext(callerContext, true)
     val originalUri = imageRequest.sourceUri
     val newUri =
@@ -1203,19 +1198,18 @@ class ImagePipeline(
               imageRequest.lowestPermittedRequestLevel,
               lowestPermittedRequestLevelOnSubmit,
           )
-      val settableProducerContext =
-          SettableProducerContext(
-              imageRequest,
-              generateUniqueFutureId(),
-              requestListener2,
-              callerContext,
-              lowestPermittedRequestLevel, /* isPrefetch */
-              true,
-              config.experiments.allowProgressiveOnPrefetch == true &&
-                  imageRequest.progressiveRenderingEnabled,
-              priority,
-              config,
-          )
+      val settableProducerContext = SettableProducerContext(
+          imageRequest,
+          generateUniqueFutureId(),
+          requestListener2,
+          callerContext,
+          lowestPermittedRequestLevel, /* isPrefetch */
+          true,
+          config.experiments.allowProgressiveOnPrefetch == true &&
+              imageRequest.progressiveRenderingEnabled,
+          priority,
+          config,
+      )
       settableProducerContext.putExtras(extras)
       create(producerSequence, settableProducerContext, requestListener2)
     } catch (exception: Exception) {

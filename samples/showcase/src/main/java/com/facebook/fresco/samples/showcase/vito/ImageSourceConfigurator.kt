@@ -21,97 +21,94 @@ data class ImageSourceConfigurator(
     private var currentImageFormat: ImageFormat = DefaultImageFormats.JPEG,
 ) {
 
-  private val imageFormats =
+  private val imageFormats = listOf(
+      "JPEG" to DefaultImageFormats.JPEG,
+      "PNG" to DefaultImageFormats.PNG,
+      "Animated GIF" to DefaultImageFormats.GIF,
+      "WebP simple" to DefaultImageFormats.WEBP_SIMPLE,
+      "WebP with alpha" to DefaultImageFormats.WEBP_EXTENDED_WITH_ALPHA,
+      "Animated WebP" to DefaultImageFormats.WEBP_ANIMATED,
+      "Keyframes" to ImageUriProvider.IMAGE_FORMAT_KEYFRAMES,
+  )
+
+  val imageFormatUpdater = Pair(
+      imageFormats.map { formatPair ->
+        Pair(
+            formatPair.first,
+            {
+              currentImageFormat = formatPair.second
+              activeImageSourceProvider()
+            },
+        )
+      },
+      "Image format",
+  )
+
+  val imageSources = Pair(
       listOf(
-          "JPEG" to DefaultImageFormats.JPEG,
-          "PNG" to DefaultImageFormats.PNG,
-          "Animated GIF" to DefaultImageFormats.GIF,
-          "WebP simple" to DefaultImageFormats.WEBP_SIMPLE,
-          "WebP with alpha" to DefaultImageFormats.WEBP_EXTENDED_WITH_ALPHA,
-          "Animated WebP" to DefaultImageFormats.WEBP_ANIMATED,
-          "Keyframes" to ImageUriProvider.IMAGE_FORMAT_KEYFRAMES,
-      )
-
-  val imageFormatUpdater =
-      Pair(
-          imageFormats.map { formatPair ->
-            Pair(
-                formatPair.first,
-                {
-                  currentImageFormat = formatPair.second
-                  activeImageSourceProvider()
-                },
-            )
-          },
-          "Image format",
-      )
-
-  val imageSources =
-      Pair(
-          listOf(
-              "Single URI" to
-                  {
-                    set { ImageSourceProvider.forUri(imageUriProvider.create(currentImageFormat)) }
-                  },
-              "Single URI String" to
-                  {
-                    set {
-                      ImageSourceProvider.forUri(
-                          imageUriProvider.create(currentImageFormat)?.toString()
-                      )
-                    }
-                  },
-              "Increasing quality" to
-                  {
-                    set {
-                      ImageSourceProvider.increasingQuality(
-                          imageUriProvider.create(currentImageFormat)!!, // TODO: low res
-                          imageUriProvider.create(currentImageFormat)!!,
-                      )
-                    }
-                  },
-              "First available" to
-                  {
-                    set {
-                      ImageSourceProvider.firstAvailable(
-                          ImageSourceProvider.forUri(imageUriProvider.create(currentImageFormat)),
-                          ImageSourceProvider.forUri(imageUriProvider.create(currentImageFormat)),
-                      )
-                    }
-                  },
-              "Empty Image Source" to { set { ImageSourceProvider.emptySource() } },
-              "Non-existing URI" to
-                  {
-                    set { ImageSourceProvider.forUri(imageUriProvider.nonExistingUri) }
-                  },
-              "null" to { set { null } },
-              "Increasing quality (low res error)" to
-                  {
-                    set {
-                      ImageSourceProvider.increasingQuality(
-                          ImageSourceProvider.forUri(imageUriProvider.nonExistingUri),
-                          ImageSourceProvider.forUri(imageUriProvider.create(currentImageFormat)),
-                      )
-                    }
-                  },
-              "First available (all error)" to
-                  {
-                    set {
-                      ImageSourceProvider.firstAvailable(
-                          ImageSourceProvider.forUri(imageUriProvider.nonExistingUri),
-                          ImageSourceProvider.forUri(imageUriProvider.nonExistingUri),
-                      )
-                    }
-                  },
-              "Local icon" to
-                  {
-                    set {
-                      ImageSourceProvider.forUri(UriUtil.getUriForResourceId(R.drawable.ic_done))
-                    }
-                  },
-          ),
-          "Image Source",
-      )
+          "Single URI" to
+              {
+                set { ImageSourceProvider.forUri(imageUriProvider.create(currentImageFormat)) }
+              },
+          "Single URI String" to
+              {
+                set {
+                  ImageSourceProvider.forUri(
+                      imageUriProvider.create(currentImageFormat)?.toString()
+                  )
+                }
+              },
+          "Increasing quality" to
+              {
+                set {
+                  ImageSourceProvider.increasingQuality(
+                      imageUriProvider.create(currentImageFormat)!!, // TODO: low res
+                      imageUriProvider.create(currentImageFormat)!!,
+                  )
+                }
+              },
+          "First available" to
+              {
+                set {
+                  ImageSourceProvider.firstAvailable(
+                      ImageSourceProvider.forUri(imageUriProvider.create(currentImageFormat)),
+                      ImageSourceProvider.forUri(imageUriProvider.create(currentImageFormat)),
+                  )
+                }
+              },
+          "Empty Image Source" to { set { ImageSourceProvider.emptySource() } },
+          "Non-existing URI" to
+              {
+                set { ImageSourceProvider.forUri(imageUriProvider.nonExistingUri) }
+              },
+          "null" to { set { null } },
+          "Increasing quality (low res error)" to
+              {
+                set {
+                  ImageSourceProvider.increasingQuality(
+                      ImageSourceProvider.forUri(imageUriProvider.nonExistingUri),
+                      ImageSourceProvider.forUri(imageUriProvider.create(currentImageFormat)),
+                  )
+                }
+              },
+          "First available (all error)" to
+              {
+                set {
+                  ImageSourceProvider.firstAvailable(
+                      ImageSourceProvider.forUri(imageUriProvider.nonExistingUri),
+                      ImageSourceProvider.forUri(imageUriProvider.nonExistingUri),
+                  )
+                }
+              },
+          "Local icon" to
+              {
+                set {
+                  ImageSourceProvider.forUri(UriUtil.getUriForResourceId(R.drawable.ic_done))
+                }
+              },
+      ),
+      "Image Source",
+  )
 
   private fun set(create: () -> ImageSource?) {
     activeImageSourceProvider = { this.imageSource = create() }

@@ -23,11 +23,10 @@ class LocalAssetFetchProducer(
 ) : LocalFetchProducer(executor, pooledByteBufferFactory) {
 
   @Throws(IOException::class)
-  override fun getEncodedImage(imageRequest: ImageRequest): EncodedImage? =
-      getEncodedImage(
-          assetManager.open(getAssetName(imageRequest), AssetManager.ACCESS_STREAMING),
-          getLength(imageRequest),
-      )
+  override fun getEncodedImage(imageRequest: ImageRequest): EncodedImage? = getEncodedImage(
+      assetManager.open(getAssetName(imageRequest), AssetManager.ACCESS_STREAMING),
+      getLength(imageRequest),
+  )
 
   private fun getLength(imageRequest: ImageRequest): Int {
     var fd: AssetFileDescriptor? = null

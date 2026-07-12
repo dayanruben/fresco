@@ -122,15 +122,14 @@ class UnifiedCacheKeyFactory(
           request.imageDecodeOptions
         }
 
-    val cacheKey =
-        BitmapMemoryCacheKey(
-            sourceString,
-            resizeOptions,
-            request.rotationOptions,
-            decodeOptions,
-            postprocessorCacheKey,
-            postprocessorName,
-        )
+    val cacheKey = BitmapMemoryCacheKey(
+        sourceString,
+        resizeOptions,
+        request.rotationOptions,
+        decodeOptions,
+        postprocessorCacheKey,
+        postprocessorName,
+    )
 
     config.debugImageTracker?.invoke(request, cacheKey)
     return cacheKey

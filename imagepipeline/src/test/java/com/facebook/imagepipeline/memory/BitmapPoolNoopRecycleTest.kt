@@ -134,10 +134,9 @@ class BitmapPoolNoopRecycleTest {
     assertThat(CloseableReference.shouldSkipBitmapRecycleForNoopRefs()).isTrue()
   }
 
-  private fun newBucketsBitmapPool(): BucketsBitmapPool =
-      BucketsBitmapPool(
-          NoOpMemoryTrimmableRegistry.getInstance(),
-          DefaultBitmapPoolParams.get(),
-          NoOpPoolStatsTracker.getInstance(),
-      )
+  private fun newBucketsBitmapPool(): BucketsBitmapPool = BucketsBitmapPool(
+      NoOpMemoryTrimmableRegistry.getInstance(),
+      DefaultBitmapPoolParams.get(),
+      NoOpPoolStatsTracker.getInstance(),
+  )
 }

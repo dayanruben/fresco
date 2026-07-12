@@ -33,35 +33,34 @@ class RendererShapeExampleFragment : BaseShowcaseKotlinFragment() {
     val exampleRect = Rect(0, 0, w, h)
     val exampleRectF = RectF(exampleRect)
 
-    val shapes =
-        listOf(
-            RectShape(RectF(exampleRect)),
-            CircleShape(
-                exampleRect.exactCenterX(),
-                exampleRect.exactCenterY(),
-                min(exampleRect.width(), exampleRect.height()) / 2f,
-            ),
-            RoundedRectShape(exampleRectF, 40f.dpToPx(), 40f.dpToPx()),
-            RoundedRectShape(exampleRectF, 20f.dpToPx(), 80f.dpToPx()),
-            PathShape(
-                Path().apply {
-                  addRoundRect(
-                      exampleRectF,
-                      floatArrayOf(
-                          10f.dpToPx(),
-                          20f.dpToPx(),
-                          30f.dpToPx(),
-                          40f.dpToPx(),
-                          50f.dpToPx(),
-                          60f.dpToPx(),
-                          70f.dpToPx(),
-                          80f.dpToPx(),
-                      ),
-                      Path.Direction.CW,
-                  )
-                }
-            ),
-        )
+    val shapes = listOf(
+        RectShape(RectF(exampleRect)),
+        CircleShape(
+            exampleRect.exactCenterX(),
+            exampleRect.exactCenterY(),
+            min(exampleRect.width(), exampleRect.height()) / 2f,
+        ),
+        RoundedRectShape(exampleRectF, 40f.dpToPx(), 40f.dpToPx()),
+        RoundedRectShape(exampleRectF, 20f.dpToPx(), 80f.dpToPx()),
+        PathShape(
+            Path().apply {
+              addRoundRect(
+                  exampleRectF,
+                  floatArrayOf(
+                      10f.dpToPx(),
+                      20f.dpToPx(),
+                      30f.dpToPx(),
+                      40f.dpToPx(),
+                      50f.dpToPx(),
+                      60f.dpToPx(),
+                      70f.dpToPx(),
+                      80f.dpToPx(),
+                  ),
+                  Path.Direction.CW,
+              )
+            }
+        ),
+    )
 
     container.findViewById<LinearLayout>(R.id.list).apply {
       addText("Example View dimensions: $w x $h px")

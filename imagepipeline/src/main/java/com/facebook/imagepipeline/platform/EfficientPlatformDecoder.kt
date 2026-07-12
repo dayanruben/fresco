@@ -38,14 +38,13 @@ class EfficientPlatformDecoder(
       bitmapConfig: Bitmap.Config,
       regionToDecode: Rect?,
       length: Int,
-  ): CloseableReference<Bitmap>? =
-      decodeJPEGFromEncodedImageWithColorSpace(
-          encodedImage,
-          bitmapConfig,
-          regionToDecode,
-          length,
-          null,
-      )
+  ): CloseableReference<Bitmap>? = decodeJPEGFromEncodedImageWithColorSpace(
+      encodedImage,
+      bitmapConfig,
+      regionToDecode,
+      length,
+      null,
+  )
 
   override fun decodeFromEncodedImageWithColorSpace(
       encodedImage: EncodedImage,

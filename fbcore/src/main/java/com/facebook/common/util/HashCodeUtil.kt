@@ -38,37 +38,42 @@ object HashCodeUtil {
       hashCode(o1?.hashCode() ?: 0, o2?.hashCode() ?: 0, o3?.hashCode() ?: 0, o4?.hashCode() ?: 0)
 
   @JvmStatic
-  fun hashCode(o1: Any?, o2: Any?, o3: Any?, o4: Any?, o5: Any?): Int =
-      hashCode(
-          o1?.hashCode() ?: 0,
-          o2?.hashCode() ?: 0,
-          o3?.hashCode() ?: 0,
-          o4?.hashCode() ?: 0,
-          o5?.hashCode() ?: 0,
-      )
+  fun hashCode(o1: Any?, o2: Any?, o3: Any?, o4: Any?, o5: Any?): Int = hashCode(
+      o1?.hashCode() ?: 0,
+      o2?.hashCode() ?: 0,
+      o3?.hashCode() ?: 0,
+      o4?.hashCode() ?: 0,
+      o5?.hashCode() ?: 0,
+  )
 
   @JvmStatic
-  fun hashCode(o1: Any?, o2: Any?, o3: Any?, o4: Any?, o5: Any?, o6: Any?): Int =
-      hashCode(
-          o1?.hashCode() ?: 0,
-          o2?.hashCode() ?: 0,
-          o3?.hashCode() ?: 0,
-          o4?.hashCode() ?: 0,
-          o5?.hashCode() ?: 0,
-          o6?.hashCode() ?: 0,
-      )
+  fun hashCode(o1: Any?, o2: Any?, o3: Any?, o4: Any?, o5: Any?, o6: Any?): Int = hashCode(
+      o1?.hashCode() ?: 0,
+      o2?.hashCode() ?: 0,
+      o3?.hashCode() ?: 0,
+      o4?.hashCode() ?: 0,
+      o5?.hashCode() ?: 0,
+      o6?.hashCode() ?: 0,
+  )
 
   @JvmStatic
-  fun hashCode(o1: Any?, o2: Any?, o3: Any?, o4: Any?, o5: Any?, o6: Any?, o7: Any?): Int =
-      hashCode(
-          o1?.hashCode() ?: 0,
-          o2?.hashCode() ?: 0,
-          o3?.hashCode() ?: 0,
-          o4?.hashCode() ?: 0,
-          o5?.hashCode() ?: 0,
-          o6?.hashCode() ?: 0,
-          o7?.hashCode() ?: 0,
-      )
+  fun hashCode(
+      o1: Any?,
+      o2: Any?,
+      o3: Any?,
+      o4: Any?,
+      o5: Any?,
+      o6: Any?,
+      o7: Any?,
+  ): Int = hashCode(
+      o1?.hashCode() ?: 0,
+      o2?.hashCode() ?: 0,
+      o3?.hashCode() ?: 0,
+      o4?.hashCode() ?: 0,
+      o5?.hashCode() ?: 0,
+      o6?.hashCode() ?: 0,
+      o7?.hashCode() ?: 0,
+  )
 
   @JvmStatic
   fun hashCode(i1: Int): Int {

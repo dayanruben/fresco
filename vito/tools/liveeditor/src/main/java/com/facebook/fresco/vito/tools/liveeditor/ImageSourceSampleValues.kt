@@ -17,44 +17,41 @@ object ImageSourceSampleValues {
       val updateFunction: (ImageSource, T) -> ImageSource,
   )
 
-  val entries: ImageSourceSampleValues.Entry<ImageSource> =
-      Entry(
-          "Image Source",
-          listOf(
-              Pair(
-                  "JPEG",
-                  ImageSourceProvider.forUri(
-                      "https://frescolib.org/static/sample-images/animal_a_l.jpg"
-                  ),
-              ),
-              Pair(
-                  "PNG",
-                  ImageSourceProvider.forUri(
-                      "https://frescolib.org/static/sample-images/animal_b.png"
-                  ),
-              ),
-              Pair(
-                  "WebP",
-                  ImageSourceProvider.forUri("https://www.gstatic.com/webp/gallery/2.webp"),
-              ),
-              Pair(
-                  "Animated WebP",
-                  ImageSourceProvider.forUri("https://www.gstatic.com/webp/animated/1.webp"),
-              ),
-              Pair(
-                  "GIF",
-                  ImageSourceProvider.forUri(
-                      "https://media2.giphy.com/media/3oge84qhopFbFFkwec/giphy.gif"
-                  ),
-              ),
-              Pair(
-                  "non-existing",
-                  ImageSourceProvider.forUri(
-                      "https://frescolib.org/static/sample-images/does_not_exist.jpg"
-                  ),
+  val entries: ImageSourceSampleValues.Entry<ImageSource> = Entry(
+      "Image Source",
+      listOf(
+          Pair(
+              "JPEG",
+              ImageSourceProvider.forUri(
+                  "https://frescolib.org/static/sample-images/animal_a_l.jpg"
               ),
           ),
-      ) { _, s ->
-        s
-      }
+          Pair(
+              "PNG",
+              ImageSourceProvider.forUri("https://frescolib.org/static/sample-images/animal_b.png"),
+          ),
+          Pair(
+              "WebP",
+              ImageSourceProvider.forUri("https://www.gstatic.com/webp/gallery/2.webp"),
+          ),
+          Pair(
+              "Animated WebP",
+              ImageSourceProvider.forUri("https://www.gstatic.com/webp/animated/1.webp"),
+          ),
+          Pair(
+              "GIF",
+              ImageSourceProvider.forUri(
+                  "https://media2.giphy.com/media/3oge84qhopFbFFkwec/giphy.gif"
+              ),
+          ),
+          Pair(
+              "non-existing",
+              ImageSourceProvider.forUri(
+                  "https://frescolib.org/static/sample-images/does_not_exist.jpg"
+              ),
+          ),
+      ),
+  ) { _, s ->
+    s
+  }
 }

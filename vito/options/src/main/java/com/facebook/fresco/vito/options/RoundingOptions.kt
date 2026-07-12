@@ -73,23 +73,22 @@ data class RoundingOptions(
         topRight: Float,
         bottomRight: Float,
         bottomLeft: Float,
-    ): RoundingOptions =
-        RoundingOptions(
-            false,
-            CORNER_RADIUS_UNSET,
-            floatArrayOf(
-                topLeft,
-                topLeft,
-                topRight,
-                topRight,
-                bottomRight,
-                bottomRight,
-                bottomLeft,
-                bottomLeft,
-            ),
-            false,
-            false,
-        )
+    ): RoundingOptions = RoundingOptions(
+        false,
+        CORNER_RADIUS_UNSET,
+        floatArrayOf(
+            topLeft,
+            topLeft,
+            topRight,
+            topRight,
+            bottomRight,
+            bottomRight,
+            bottomLeft,
+            bottomLeft,
+        ),
+        false,
+        false,
+    )
 
     @JvmStatic
     @JvmOverloads

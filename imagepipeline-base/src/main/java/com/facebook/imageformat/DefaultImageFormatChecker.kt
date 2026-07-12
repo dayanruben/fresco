@@ -18,22 +18,21 @@ class DefaultImageFormatChecker : FormatChecker {
    *
    * This determines how much data [reads][ImageFormatChecker.getImageFormat]
    */
-  override val headerSize: Int =
-      checkNotNull(
-          arrayOf(
-                  EXTENDED_WEBP_HEADER_LENGTH,
-                  SIMPLE_WEBP_HEADER_LENGTH,
-                  JPEG_HEADER_LENGTH,
-                  PNG_HEADER_LENGTH,
-                  GIF_HEADER_LENGTH,
-                  BMP_HEADER_LENGTH,
-                  ICO_HEADER_LENGTH,
-                  HEIF_HEADER_LENGTH,
-                  BINARY_XML_HEADER_LENGTH,
-                  AVIF_HEADER_LENGTH,
-              )
-              .maxOrNull()
+  override val headerSize: Int = checkNotNull(
+      arrayOf(
+          EXTENDED_WEBP_HEADER_LENGTH,
+          SIMPLE_WEBP_HEADER_LENGTH,
+          JPEG_HEADER_LENGTH,
+          PNG_HEADER_LENGTH,
+          GIF_HEADER_LENGTH,
+          BMP_HEADER_LENGTH,
+          ICO_HEADER_LENGTH,
+          HEIF_HEADER_LENGTH,
+          BINARY_XML_HEADER_LENGTH,
+          AVIF_HEADER_LENGTH,
       )
+          .maxOrNull()
+  )
 
   /**
    * Tries to match imageHeaderByte and headerSize against every known image format. If any match
@@ -132,17 +131,16 @@ class DefaultImageFormatChecker : FormatChecker {
             ImageFormatCheckerUtils.startsWithPattern(imageHeaderBytes, JPEG_HEADER)
 
     /** Every PNG image starts with 8 byte signature consisting of following bytes */
-    private val PNG_HEADER =
-        byteArrayOf(
-            0x89.toByte(),
-            'P'.code.toByte(),
-            'N'.code.toByte(),
-            'G'.code.toByte(),
-            0x0D.toByte(),
-            0x0A.toByte(),
-            0x1A.toByte(),
-            0x0A.toByte(),
-        )
+    private val PNG_HEADER = byteArrayOf(
+        0x89.toByte(),
+        'P'.code.toByte(),
+        'N'.code.toByte(),
+        'G'.code.toByte(),
+        0x0D.toByte(),
+        0x0A.toByte(),
+        0x1A.toByte(),
+        0x0A.toByte(),
+    )
     private val PNG_HEADER_LENGTH = PNG_HEADER.size
 
     /**
@@ -228,15 +226,14 @@ class DefaultImageFormatChecker : FormatChecker {
      * image format which can be one of: heic, heix, hevc, hevx.
      */
     private val HEIF_HEADER_PREFIX: ByteArray = ImageFormatCheckerUtils.asciiBytes("ftyp")
-    private val HEIF_HEADER_SUFFIXES =
-        arrayOf<ByteArray>(
-            ImageFormatCheckerUtils.asciiBytes("heic"),
-            ImageFormatCheckerUtils.asciiBytes("heix"),
-            ImageFormatCheckerUtils.asciiBytes("hevc"),
-            ImageFormatCheckerUtils.asciiBytes("hevx"),
-            ImageFormatCheckerUtils.asciiBytes("mif1"),
-            ImageFormatCheckerUtils.asciiBytes("msf1"),
-        )
+    private val HEIF_HEADER_SUFFIXES = arrayOf<ByteArray>(
+        ImageFormatCheckerUtils.asciiBytes("heic"),
+        ImageFormatCheckerUtils.asciiBytes("heix"),
+        ImageFormatCheckerUtils.asciiBytes("hevc"),
+        ImageFormatCheckerUtils.asciiBytes("hevx"),
+        ImageFormatCheckerUtils.asciiBytes("mif1"),
+        ImageFormatCheckerUtils.asciiBytes("msf1"),
+    )
     private const val HEIF_HEADER_LENGTH = 12
 
     /**
@@ -298,13 +295,12 @@ class DefaultImageFormatChecker : FormatChecker {
      * @see
      *   https://developer.android.com/reference/android/view/LayoutInflater#inflate(org.xmlpull.v1.XmlPullParser,%20android.view.ViewGroup)
      */
-    private val BINARY_XML_HEADER: ByteArray =
-        byteArrayOf(
-            3.toByte(),
-            0.toByte(),
-            8.toByte(),
-            0.toByte(),
-        )
+    private val BINARY_XML_HEADER: ByteArray = byteArrayOf(
+        3.toByte(),
+        0.toByte(),
+        8.toByte(),
+        0.toByte(),
+    )
     private const val BINARY_XML_HEADER_LENGTH: Int = 4
 
     private fun isBinaryXmlHeader(headerBytes: ByteArray, headerSize: Int): Boolean {

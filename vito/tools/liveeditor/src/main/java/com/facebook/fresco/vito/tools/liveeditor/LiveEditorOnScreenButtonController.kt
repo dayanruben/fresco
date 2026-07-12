@@ -140,19 +140,18 @@ class LiveEditorOnScreenButtonController(
 
   // Button order: left nav, middle actions, right nav
   // Navigation buttons are on far left and far right edges
-  private val buttons =
-      listOfNotNull(
-          ButtonConfig("Previous image", buttonStyle.iconPrevious) {
-            imageSelector?.selectPrevious(it.context)
-          },
-          ButtonConfig("Edit image", buttonStyle.iconEdit) { showLiveEditor(it.context) },
-          ButtonConfig("Image options", buttonStyle.iconCode) { showImageOptions(it.context) },
-          ButtonConfig("Image info", buttonStyle.iconInfo) { showImageInfo(it.context) },
-          additionalButtonConfig,
-          ButtonConfig("Next image", buttonStyle.iconNext) {
-            imageSelector?.selectNext(it.context)
-          },
-      )
+  private val buttons = listOfNotNull(
+      ButtonConfig("Previous image", buttonStyle.iconPrevious) {
+        imageSelector?.selectPrevious(it.context)
+      },
+      ButtonConfig("Edit image", buttonStyle.iconEdit) { showLiveEditor(it.context) },
+      ButtonConfig("Image options", buttonStyle.iconCode) { showImageOptions(it.context) },
+      ButtonConfig("Image info", buttonStyle.iconInfo) { showImageInfo(it.context) },
+      additionalButtonConfig,
+      ButtonConfig("Next image", buttonStyle.iconNext) {
+        imageSelector?.selectNext(it.context)
+      },
+  )
 
   val imageTrackerListener: ImageTracker =
       object : ImageTracker() {
@@ -700,19 +699,18 @@ class LiveEditorOnScreenButtonController(
           val isFirstButton = index == 0
           val isLastButton = index == buttonCount - 1
 
-          val imageButton =
-              createIconButton(
-                  context,
-                  buttonPadding,
-                  buttonLayoutParams,
-                  button.iconResId,
-                  button.title,
-                  button.action,
-                  isFirstButton = isFirstButton,
-                  isLastButton = isLastButton,
-                  edgeCornerRadius = edgeCornerRadius,
-                  innerCornerRadius = innerCornerRadius,
-              )
+          val imageButton = createIconButton(
+              context,
+              buttonPadding,
+              buttonLayoutParams,
+              button.iconResId,
+              button.title,
+              button.action,
+              isFirstButton = isFirstButton,
+              isLastButton = isLastButton,
+              edgeCornerRadius = edgeCornerRadius,
+              innerCornerRadius = innerCornerRadius,
+          )
           createdButtons.add(imageButton)
           buttonBar.addView(imageButton)
         }

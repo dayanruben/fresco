@@ -82,12 +82,11 @@ class CountingMemoryCacheInspector<K, V>(
    */
   fun dumpCacheContent(): DumpInfo<K, V> {
     synchronized(countingBitmapCache) {
-      val dumpInfo =
-          DumpInfo<K, V>(
-              countingBitmapCache.sizeInBytes,
-              countingBitmapCache.evictionQueueSizeInBytes,
-              countingBitmapCache.memoryCacheParams,
-          )
+      val dumpInfo = DumpInfo<K, V>(
+          countingBitmapCache.sizeInBytes,
+          countingBitmapCache.evictionQueueSizeInBytes,
+          countingBitmapCache.memoryCacheParams,
+      )
       val maybeCachedEntries = countingBitmapCache.cachedEntries ?: return dumpInfo
       val cachedEntries: List<Map.Entry<K, CountingMemoryCache.Entry<K, V>>> =
           maybeCachedEntries.getMatchingEntries(null)

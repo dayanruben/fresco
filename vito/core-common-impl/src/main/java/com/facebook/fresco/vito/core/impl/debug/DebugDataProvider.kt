@@ -234,45 +234,42 @@ val imageIDProvider: StringDebugDataProvider =
 /**
  * Provides drawable dimensions (works with any FrescoDrawableInterface that is also a Drawable).
  */
-val drawableDimensionsProvider: StringDebugDataProvider =
-    StringDebugDataProvider(
-        "D",
-        "Drawable dimensions",
-        "The visible Drawable dimensions on screen",
-    ) { drawable, _ ->
-      if (drawable is Drawable) {
-        formatDimensions(drawable.bounds.width(), drawable.bounds.height())
-      } else {
-        ""
-      }
-    }
+val drawableDimensionsProvider: StringDebugDataProvider = StringDebugDataProvider(
+    "D",
+    "Drawable dimensions",
+    "The visible Drawable dimensions on screen",
+) { drawable, _ ->
+  if (drawable is Drawable) {
+    formatDimensions(drawable.bounds.width(), drawable.bounds.height())
+  } else {
+    ""
+  }
+}
 
 /** Provides HDR gainmap information. */
-val hdrGainmapProvider: StringDebugDataProvider =
-    StringDebugDataProvider(
-        shortName = "hdr",
-        longName = "hdrGainmap",
-        description = "Has Bitmap with HDR Gainmap",
-    ) { drawable, _ ->
-      drawable.hasBitmapWithGainmap().toString()
-    }
+val hdrGainmapProvider: StringDebugDataProvider = StringDebugDataProvider(
+    shortName = "hdr",
+    longName = "hdrGainmap",
+    description = "Has Bitmap with HDR Gainmap",
+) { drawable, _ ->
+  drawable.hasBitmapWithGainmap().toString()
+}
 // ============================================================================
 // Extras-based providers
 // ============================================================================
 
 /** Provides drawable dimensions with extras support. */
-val drawableDimensionsWithExtrasProvider: StringDebugDataProvider =
-    StringDebugDataProvider(
-        "D",
-        "Drawable dimensions",
-        "The visible Drawable dimensions on screen",
-    ) { drawable, _ ->
-      if (drawable is Drawable) {
-        formatDimensions(drawable.bounds.width(), drawable.bounds.height())
-      } else {
-        ""
-      }
-    }
+val drawableDimensionsWithExtrasProvider: StringDebugDataProvider = StringDebugDataProvider(
+    "D",
+    "Drawable dimensions",
+    "The visible Drawable dimensions on screen",
+) { drawable, _ ->
+  if (drawable is Drawable) {
+    formatDimensions(drawable.bounds.width(), drawable.bounds.height())
+  } else {
+    ""
+  }
+}
 
 /** Provides image origin with color. */
 val imageOriginWithExtrasProvider: StringAndColorDebugDataProvider =
@@ -285,60 +282,58 @@ val imageOriginWithExtrasProvider: StringAndColorDebugDataProvider =
     }
 
 /** Provides abbreviated image origin with color (for compact display). */
-val abbreviatedOriginWithExtrasProvider: StringAndColorDebugDataProvider =
-    StringAndColorDebugDataProvider(
-        "o",
-        "Origin",
-        "The source of the image (abbreviated)",
-    ) { drawable, extras ->
-      val originExtras =
-          getOriginExtras(extras) ?: (drawable.extras as? Extras)?.let { getOriginExtras(it) }
-      val origin = originExtras?.get("origin")?.toString() ?: "unknown"
-      val color = DebugOverlayImageOriginColor.getImageOriginColor(origin)
-      abbreviateOrigin(origin) to color
-    }
+val abbreviatedOriginWithExtrasProvider:
+    StringAndColorDebugDataProvider = StringAndColorDebugDataProvider(
+    "o",
+    "Origin",
+    "The source of the image (abbreviated)",
+) { drawable, extras ->
+  val originExtras =
+      getOriginExtras(extras) ?: (drawable.extras as? Extras)?.let { getOriginExtras(it) }
+  val origin = originExtras?.get("origin")?.toString() ?: "unknown"
+  val color = DebugOverlayImageOriginColor.getImageOriginColor(origin)
+  abbreviateOrigin(origin) to color
+}
 
 /** Provides image origin subcategory with color. */
-val imageOriginSubcategoryWithExtrasProvider: StringAndColorDebugDataProvider =
-    StringAndColorDebugDataProvider(
-        "o_s",
-        "Origin Subcategory",
-        "The subcategory of source of the image",
-    ) { drawable, extras ->
-      val originExtras =
-          getOriginExtras(extras) ?: (drawable.extras as? Extras)?.let { getOriginExtras(it) }
-      val originSubcategory =
-          originExtras?.get(HasExtraData.KEY_ORIGIN_SUBCATEGORY)?.toString() ?: "unknown"
-      originSubcategory to Color.GRAY
-    }
+val imageOriginSubcategoryWithExtrasProvider:
+    StringAndColorDebugDataProvider = StringAndColorDebugDataProvider(
+    "o_s",
+    "Origin Subcategory",
+    "The subcategory of source of the image",
+) { drawable, extras ->
+  val originExtras =
+      getOriginExtras(extras) ?: (drawable.extras as? Extras)?.let { getOriginExtras(it) }
+  val originSubcategory =
+      originExtras?.get(HasExtraData.KEY_ORIGIN_SUBCATEGORY)?.toString() ?: "unknown"
+  originSubcategory to Color.GRAY
+}
 
 /** Provides image format. */
-val imageFormatProvider: StringDebugDataProvider =
-    StringDebugDataProvider(
-        "fmt",
-        "Image Format",
-        "The format of the image (JPEG, PNG, WEBP, etc.)",
-    ) { drawable, extras ->
-      // Try to get from extras first
-      getImageFormat(extras)?.let {
-        return@StringDebugDataProvider it
-      }
+val imageFormatProvider: StringDebugDataProvider = StringDebugDataProvider(
+    "fmt",
+    "Image Format",
+    "The format of the image (JPEG, PNG, WEBP, etc.)",
+) { drawable, extras ->
+  // Try to get from extras first
+  getImageFormat(extras)?.let {
+    return@StringDebugDataProvider it
+  }
 
-      // Try to get from drawable's stored extras
-      (drawable.extras as? Extras)?.let { getImageFormat(it) } ?: ""
-    }
+  // Try to get from drawable's stored extras
+  (drawable.extras as? Extras)?.let { getImageFormat(it) } ?: ""
+}
 
 /** Provides truncated image URI. */
-val imageUriProvider: StringDebugDataProvider =
-    StringDebugDataProvider(
-        "uri",
-        "Image URI",
-        "The URI of the image (truncated)",
-    ) { drawable, _ ->
-      val uri = drawable.imageRequest?.finalImageRequest?.sourceUri?.toString()
-      if (uri != null) {
-        truncateUri(uri)
-      } else {
-        ""
-      }
-    }
+val imageUriProvider: StringDebugDataProvider = StringDebugDataProvider(
+    "uri",
+    "Image URI",
+    "The URI of the image (truncated)",
+) { drawable, _ ->
+  val uri = drawable.imageRequest?.finalImageRequest?.sourceUri?.toString()
+  if (uri != null) {
+    truncateUri(uri)
+  } else {
+    ""
+  }
+}

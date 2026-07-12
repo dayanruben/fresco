@@ -41,12 +41,11 @@ object NTSCDampeningFilterUtil {
       var brightnessHSB = hsv[2]
 
       // Calculate adjustment factor based on both perceptual brightness and max channel
-      val adjustmentFactor =
-          maxOf(
-                  (brightness - brightnessThreshold) / (1.0 - brightnessThreshold),
-                  (maxChannel - channelThreshold) / (1.0 - channelThreshold),
-              )
-              .coerceIn(0.0, 1.0)
+      val adjustmentFactor = maxOf(
+          (brightness - brightnessThreshold) / (1.0 - brightnessThreshold),
+          (maxChannel - channelThreshold) / (1.0 - channelThreshold),
+      )
+          .coerceIn(0.0, 1.0)
 
       // Apply a progressive brightness reduction based on how bright the color is
       val brightnessReduction = adjustmentFactor * reductionFactor

@@ -315,10 +315,9 @@ class ProducerSequenceFactory(
       networkFetcher: NetworkFetcher<*>,
   ): Producer<EncodedImage> =
       traceSection("ProducerSequenceFactory#createCommonNetworkFetchToEncodedMemorySequence") {
-        val inputProducer: Producer<EncodedImage> =
-            newEncodedCacheMultiplexToTranscodeSequence(
-                producerFactory.newNetworkFetchProducer(networkFetcher),
-            )
+        val inputProducer: Producer<EncodedImage> = newEncodedCacheMultiplexToTranscodeSequence(
+            producerFactory.newNetworkFetchProducer(networkFetcher),
+        )
         var networkFetchToEncodedMemorySequence: Producer<EncodedImage> =
             ProducerFactory.newAddImageTransformMetaDataProducer(inputProducer)
         networkFetchToEncodedMemorySequence =
@@ -399,11 +398,10 @@ class ProducerSequenceFactory(
    */
   val localContentUriFetchSequence: Producer<CloseableReference<CloseableImage>> by lazy {
     val localContentUriFetchProducer = producerFactory.newLocalContentUriFetchProducer()
-    val thumbnailProducers: Array<ThumbnailProducer<EncodedImage>> =
-        arrayOf(
-            producerFactory.newLocalContentUriThumbnailFetchProducer(),
-            producerFactory.newLocalExifThumbnailProducer(),
-        )
+    val thumbnailProducers: Array<ThumbnailProducer<EncodedImage>> = arrayOf(
+        producerFactory.newLocalContentUriThumbnailFetchProducer(),
+        producerFactory.newLocalExifThumbnailProducer(),
+    )
     newBitmapCacheGetToLocalTransformSequence(localContentUriFetchProducer, thumbnailProducers)
   }
 

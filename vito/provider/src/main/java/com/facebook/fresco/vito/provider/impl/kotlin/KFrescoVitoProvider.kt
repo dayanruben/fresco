@@ -42,12 +42,12 @@ class KFrescoVitoProvider(
 
   private val _controller: FrescoController2 by lazy {
     KFrescoController(
-            config = vitoConfig,
-            vitoImagePipeline = _imagePipeline,
-            uiThreadExecutor = uiThreadExecutor,
-            lightweightBackgroundThreadExecutor = lightweightBackgroundExecutor,
-            drawableFactory = getFactory(),
-        )
+        config = vitoConfig,
+        vitoImagePipeline = _imagePipeline,
+        uiThreadExecutor = uiThreadExecutor,
+        lightweightBackgroundThreadExecutor = lightweightBackgroundExecutor,
+        drawableFactory = getFactory(),
+    )
         .also { it.debugOverlayHandler = debugOverlayHandler }
   }
 

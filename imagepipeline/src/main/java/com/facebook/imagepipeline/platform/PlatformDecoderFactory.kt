@@ -33,23 +33,21 @@ object PlatformDecoderFactory {
       platformDecoderOptions: PlatformDecoderOptions,
   ): PlatformDecoder =
       if (platformDecoderOptions.useEfficientDecoder) {
-        val rawDecoder =
-            EfficientRawBitmapDecoder(
-                createPool(poolFactory, useDecodeBufferHelper),
-                platformDecoderOptions,
-            )
+        val rawDecoder = EfficientRawBitmapDecoder(
+            createPool(poolFactory, useDecodeBufferHelper),
+            platformDecoderOptions,
+        )
         EfficientPlatformDecoder(rawDecoder, platformDecoderOptions)
       } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val pool = createPool(poolFactory, useDecodeBufferHelper)
-        val rawDecoder =
-            DefaultRawBitmapDecoder(
-                pool,
-                platformDecoderOptions,
-                bitmapPool = poolFactory.bitmapPool,
-                bitmapSizeCalculator = { w, h, opts ->
-                  BitmapUtil.getSizeInByteForBitmap(w, h, opts.outConfig ?: Bitmap.Config.ARGB_8888)
-                },
-            )
+        val rawDecoder = DefaultRawBitmapDecoder(
+            pool,
+            platformDecoderOptions,
+            bitmapPool = poolFactory.bitmapPool,
+            bitmapSizeCalculator = { w, h, opts ->
+              BitmapUtil.getSizeInByteForBitmap(w, h, opts.outConfig ?: Bitmap.Config.ARGB_8888)
+            },
+        )
         OreoDecoder(
             poolFactory.bitmapPool,
             pool,
@@ -58,15 +56,14 @@ object PlatformDecoderFactory {
         )
       } else {
         val pool = createPool(poolFactory, useDecodeBufferHelper)
-        val rawDecoder =
-            DefaultRawBitmapDecoder(
-                pool,
-                platformDecoderOptions,
-                bitmapPool = poolFactory.bitmapPool,
-                bitmapSizeCalculator = { w, h, opts ->
-                  BitmapUtil.getSizeInByteForBitmap(w, h, opts.inPreferredConfig)
-                },
-            )
+        val rawDecoder = DefaultRawBitmapDecoder(
+            pool,
+            platformDecoderOptions,
+            bitmapPool = poolFactory.bitmapPool,
+            bitmapSizeCalculator = { w, h, opts ->
+              BitmapUtil.getSizeInByteForBitmap(w, h, opts.inPreferredConfig)
+            },
+        )
         ArtDecoder(
             poolFactory.bitmapPool,
             pool,

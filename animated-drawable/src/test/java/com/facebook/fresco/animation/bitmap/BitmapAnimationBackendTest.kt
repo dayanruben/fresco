@@ -1042,11 +1042,10 @@ class BitmapAnimationBackendTest {
   @Test
   fun testAnimationProgressTrackingInfiniteAnimation() {
     setupAnimationInformation(frameCount = 3)
-    val backend =
-        createThumbnailBackend(
-            "https://example.com/thumb.jpg",
-            AnimationInformation.LOOP_COUNT_INFINITE,
-        )
+    val backend = createThumbnailBackend(
+        "https://example.com/thumb.jpg",
+        AnimationInformation.LOOP_COUNT_INFINITE,
+    )
     backend.setFrameListener(frameListener)
 
     whenever(bitmapFrameCache.getCachedFrame(any<Int>())).thenReturn(bitmapReference)

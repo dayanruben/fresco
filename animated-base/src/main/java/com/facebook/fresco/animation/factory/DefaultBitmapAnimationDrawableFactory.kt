@@ -87,12 +87,11 @@ class DefaultBitmapAnimationDrawableFactory(
     val closeable = image as CloseableAnimatedImage
     val animatedImage = closeable.image
 
-    val animationBackend =
-        createAnimationBackend(
-            Preconditions.checkNotNull(closeable.imageResult),
-            animatedImage?.animatedBitmapConfig,
-            null,
-        )
+    val animationBackend = createAnimationBackend(
+        Preconditions.checkNotNull(closeable.imageResult),
+        animatedImage?.animatedBitmapConfig,
+        null,
+    )
     return if (useRendererAnimatedDrawable.get()) {
       KAnimatedDrawable2(animationBackend)
     } else {
@@ -169,12 +168,11 @@ class DefaultBitmapAnimationDrawableFactory(
     val animationInfo = AnimatedDrawableBackendAnimationInformation(animatedDrawableBackend)
 
     val bitmapFrameCache = createBitmapFrameCache(animatedImageResult)
-    val bitmapFrameRenderer =
-        AnimatedDrawableBackendFrameRenderer(
-            bitmapFrameCache,
-            animatedDrawableBackend,
-            useNewBitmapRender.get(),
-        )
+    val bitmapFrameRenderer = AnimatedDrawableBackendFrameRenderer(
+        bitmapFrameCache,
+        animatedDrawableBackend,
+        useNewBitmapRender.get(),
+    )
 
     val numberOfFramesToPrefetch = numberOfFramesToPrepareSupplier.get()
     var bitmapFramePreparationStrategy: BitmapFramePreparationStrategy? = null
@@ -207,18 +205,17 @@ class DefaultBitmapAnimationDrawableFactory(
           )
     }
 
-    val bitmapAnimationBackend =
-        BitmapAnimationBackend(
-            platformBitmapFactory,
-            bitmapFrameCache,
-            animationInfo,
-            bitmapFrameRenderer,
-            useNewBitmapRender.get(),
-            bitmapFramePreparationStrategy,
-            bitmapFramePreparer,
-            roundingOptions,
-            animatedOptions,
-        )
+    val bitmapAnimationBackend = BitmapAnimationBackend(
+        platformBitmapFactory,
+        bitmapFrameCache,
+        animationInfo,
+        bitmapFrameRenderer,
+        useNewBitmapRender.get(),
+        bitmapFramePreparationStrategy,
+        bitmapFramePreparer,
+        roundingOptions,
+        animatedOptions,
+    )
 
     // Set the animated image performance logging listener
     bitmapAnimationBackend.setAnimatedImagePerfLoggingListener(animatedImagePerfLoggingListener)

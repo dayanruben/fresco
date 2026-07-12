@@ -135,18 +135,17 @@ abstract class AnimatedImageDecoderBase(
     val bitmap = createBitmap(image.width, image.height, bitmapConfig)
     val tempResult = AnimatedImageResult.forAnimatedImage(image)
     val drawableBackend = animatedDrawableBackendProvider.get(tempResult, null)
-    val animatedImageCompositor =
-        AnimatedImageCompositor(
-            drawableBackend,
-            isNewRenderImplementation,
-            object : AnimatedImageCompositor.Callback {
-              override fun onIntermediateResult(frameNumber: Int, bitmap: Bitmap) {
-                // Don't care.
-              }
+    val animatedImageCompositor = AnimatedImageCompositor(
+        drawableBackend,
+        isNewRenderImplementation,
+        object : AnimatedImageCompositor.Callback {
+          override fun onIntermediateResult(frameNumber: Int, bitmap: Bitmap) {
+            // Don't care.
+          }
 
-              override fun getCachedBitmap(frameNumber: Int): CloseableReference<Bitmap>? = null
-            },
-        )
+          override fun getCachedBitmap(frameNumber: Int): CloseableReference<Bitmap>? = null
+        },
+    )
     animatedImageCompositor.renderFrame(frameForPreview, bitmap.get())
     return bitmap
   }
@@ -158,19 +157,18 @@ abstract class AnimatedImageDecoderBase(
     val tempResult = AnimatedImageResult.forAnimatedImage(image)
     val drawableBackend = animatedDrawableBackendProvider.get(tempResult, null)
     val bitmaps: MutableList<CloseableReference<Bitmap>?> = ArrayList(drawableBackend.frameCount)
-    val animatedImageCompositor =
-        AnimatedImageCompositor(
-            drawableBackend,
-            isNewRenderImplementation,
-            object : AnimatedImageCompositor.Callback {
-              override fun onIntermediateResult(frameNumber: Int, bitmap: Bitmap) {
-                // Don't care.
-              }
+    val animatedImageCompositor = AnimatedImageCompositor(
+        drawableBackend,
+        isNewRenderImplementation,
+        object : AnimatedImageCompositor.Callback {
+          override fun onIntermediateResult(frameNumber: Int, bitmap: Bitmap) {
+            // Don't care.
+          }
 
-              override fun getCachedBitmap(frameNumber: Int): CloseableReference<Bitmap>? =
-                  CloseableReference.cloneOrNull(bitmaps[frameNumber])
-            },
-        )
+          override fun getCachedBitmap(frameNumber: Int): CloseableReference<Bitmap>? =
+              CloseableReference.cloneOrNull(bitmaps[frameNumber])
+        },
+    )
     for (i in 0..<drawableBackend.frameCount) {
       val bitmap = createBitmap(drawableBackend.width, drawableBackend.height, bitmapConfig)
       animatedImageCompositor.renderFrame(i, bitmap.get())
