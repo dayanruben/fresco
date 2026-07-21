@@ -63,7 +63,9 @@ interface ControllerListener2<INFO> {
       }
 
       private fun copyMap(@PropagatesNullable map: Map<String, Any>?): Map<String, Any>? =
-          map?.let(::ConcurrentHashMap)
+          map?.let {
+            ConcurrentHashMap(it)
+          }
     }
   }
 
