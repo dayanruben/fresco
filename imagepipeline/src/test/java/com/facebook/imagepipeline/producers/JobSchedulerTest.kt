@@ -372,6 +372,41 @@ class JobSchedulerTest {
   }
 
   @Test
+  fun testProgressiveThrottle_realDecodeAfterIntermediate_isDelayedByFullInterval() {
+    jobScheduler.updateJob(fakeEncodedImage(), Consumer.NO_FLAGS)
+    jobScheduler.scheduleJob()
+    fakeClockForTime.incrementBy(1234)
+    fakeClockForWorker.incrementBy(1234)
+    fakeClockForScheduled.incrementBy(1234)
+    assertThat(testJobRunnable.jobs.size).isEqualTo(1)
+
+    jobScheduler.updateJob(fakeEncodedImage(), Consumer.IS_LAST)
+    jobScheduler.scheduleJob()
+    fakeClockForTime.incrementBy(0)
+    fakeClockForWorker.incrementBy(0)
+    fakeClockForScheduled.incrementBy(0)
+
+    assertThat(testScheduledExecutorService.pendingCount).isEqualTo(1)
+    assertThat(testScheduledExecutorService.getScheduledQueue().getNextPendingCommandDelay())
+        .isEqualTo(INTERVAL.toLong())
+    assertThat(testJobRunnable.jobs.size).isEqualTo(1)
+  }
+
+  @Test
+  fun testProgressiveThrottle_realDecodeWithoutIntermediate_runsImmediately() {
+    jobScheduler.updateJob(fakeEncodedImage(), Consumer.IS_LAST)
+    jobScheduler.scheduleJob()
+
+    assertThat(testScheduledExecutorService.pendingCount).isEqualTo(0)
+    assertThat(testExecutorService.pendingCount).isEqualTo(1)
+
+    fakeClockForTime.incrementBy(0)
+    fakeClockForWorker.incrementBy(0)
+    fakeClockForScheduled.incrementBy(0)
+    assertThat(testJobRunnable.jobs.size).isEqualTo(1)
+  }
+
+  @Test
   fun testFailure() {
     jobScheduler.updateJob(fakeEncodedImage(), Consumer.NO_FLAGS)
     jobScheduler.scheduleJob()

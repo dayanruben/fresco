@@ -320,6 +320,90 @@ public class DecodeProducerTest {
   }
 
   @Test
+  public void testSkipNonJpegIntermediateScheduling_webpIntermediate_flagOff_schedules() {
+    mEncodedImage.setImageFormat(DefaultImageFormats.WEBP_SIMPLE);
+    setupNetworkUri();
+    Consumer<EncodedImage> consumer = produceResults();
+
+    when(mJobScheduler.updateJob(mEncodedImage, Consumer.NO_FLAGS)).thenReturn(true);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+
+    verify(mJobScheduler).scheduleJob();
+  }
+
+  @Test
+  public void testSkipNonJpegIntermediateScheduling_webpIntermediate_flagOn_notScheduled() {
+    when(mPipelineExperiments.getSkipNonJpegIntermediateDecodeScheduling()).thenReturn(true);
+    mEncodedImage.setImageFormat(DefaultImageFormats.WEBP_SIMPLE);
+    setupNetworkUri();
+    Consumer<EncodedImage> consumer = produceResults();
+
+    when(mJobScheduler.updateJob(mEncodedImage, Consumer.NO_FLAGS)).thenReturn(true);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+
+    verify(mJobScheduler, never()).scheduleJob();
+  }
+
+  @Test
+  public void testSkipNonJpegIntermediateScheduling_webpFinal_flagOn_schedules() {
+    when(mPipelineExperiments.getSkipNonJpegIntermediateDecodeScheduling()).thenReturn(true);
+    mEncodedImage.setImageFormat(DefaultImageFormats.WEBP_SIMPLE);
+    setupNetworkUri();
+    Consumer<EncodedImage> consumer = produceResults();
+
+    when(mJobScheduler.updateJob(mEncodedImage, Consumer.IS_LAST)).thenReturn(true);
+    consumer.onNewResult(mEncodedImage, Consumer.IS_LAST);
+
+    verify(mJobScheduler).scheduleJob();
+  }
+
+  @Test
+  public void testSkipNonJpegIntermediateScheduling_jpegIntermediate_flagOn_schedules() {
+    when(mPipelineExperiments.getSkipNonJpegIntermediateDecodeScheduling()).thenReturn(true);
+    setupNetworkUri();
+    Consumer<EncodedImage> consumer = produceResults();
+
+    when(mJobScheduler.updateJob(mEncodedImage, Consumer.NO_FLAGS)).thenReturn(true);
+    when(mProgressiveJpegParser.parseMoreData(any(EncodedImage.class))).thenReturn(true);
+    when(mProgressiveJpegParser.getBestScanNumber()).thenReturn(GOOD_ENOUGH_SCAN);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+
+    verify(mJobScheduler).scheduleJob();
+  }
+
+  @Test
+  public void
+      testSkipNonJpegIntermediateScheduling_webpMultipleChunks_flagOff_everyChunkSchedules() {
+    mEncodedImage.setImageFormat(DefaultImageFormats.WEBP_SIMPLE);
+    setupNetworkUri();
+    Consumer<EncodedImage> consumer = produceResults();
+
+    when(mJobScheduler.updateJob(any(EncodedImage.class), anyInt())).thenReturn(true);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+    consumer.onNewResult(mEncodedImage, Consumer.IS_LAST);
+
+    verify(mJobScheduler, times(4)).scheduleJob();
+  }
+
+  @Test
+  public void testSkipNonJpegIntermediateScheduling_webpMultipleChunks_flagOn_onlyFinalSchedules() {
+    when(mPipelineExperiments.getSkipNonJpegIntermediateDecodeScheduling()).thenReturn(true);
+    mEncodedImage.setImageFormat(DefaultImageFormats.WEBP_SIMPLE);
+    setupNetworkUri();
+    Consumer<EncodedImage> consumer = produceResults();
+
+    when(mJobScheduler.updateJob(any(EncodedImage.class), anyInt())).thenReturn(true);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+    consumer.onNewResult(mEncodedImage, Consumer.IS_LAST);
+
+    verify(mJobScheduler, times(1)).scheduleJob();
+  }
+
+  @Test
   public void testFailure() {
     setupNetworkUri();
     Consumer<EncodedImage> consumer = produceResults();

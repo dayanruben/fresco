@@ -167,7 +167,12 @@ class DecodeProducer(
             return
           }
           val isPlaceholder = statusHasFlag(status, Consumer.IS_PLACEHOLDER)
-          if (isLast || isPlaceholder || producerContext.isIntermediateResultExpected) {
+          val scheduleIntermediateResult =
+              producerContext.isIntermediateResultExpected &&
+                  (!producerContext.imagePipelineConfig.experiments
+                      .skipNonJpegIntermediateDecodeScheduling ||
+                      newResult?.imageFormat === DefaultImageFormats.JPEG)
+          if (isLast || isPlaceholder || scheduleIntermediateResult) {
             jobScheduler.scheduleJob()
           }
         }

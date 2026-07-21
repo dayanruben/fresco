@@ -83,6 +83,7 @@ class ImagePipelineExperiments private constructor(builder: Builder) {
   val preserveMetadataOnDiskDuringStartup: Boolean
   val intermediateProgressUpdatesDisabled: Boolean
   val intermediateProgressUpdatesForPrefetchDisabled: Boolean
+  val skipNonJpegIntermediateDecodeScheduling: Boolean
   val throwCacheMissExceptionOnCacheMiss: Boolean
   val usePostProcessedCacheKey: Boolean
   val usePostprocessorDuringDecodedPrefetch: Boolean
@@ -151,6 +152,8 @@ class ImagePipelineExperiments private constructor(builder: Builder) {
 
     @JvmField var intermediateProgressUpdatesDisabled = false
     @JvmField var intermediateProgressUpdatesForPrefetchDisabled = false
+
+    @JvmField var skipNonJpegIntermediateDecodeScheduling = false
 
     @JvmField var throwCacheMissExceptionOnCacheMiss = false
 
@@ -355,6 +358,12 @@ class ImagePipelineExperiments private constructor(builder: Builder) {
 
     fun setCancelDecodeOnCacheMiss(cancelDecodeOnCacheMiss: Boolean) = asBuilder {
       this.cancelDecodeOnCacheMiss = cancelDecodeOnCacheMiss
+    }
+
+    fun setSkipNonJpegIntermediateDecodeScheduling(
+        skipNonJpegIntermediateDecodeScheduling: Boolean
+    ) = asBuilder {
+      this.skipNonJpegIntermediateDecodeScheduling = skipNonJpegIntermediateDecodeScheduling
     }
 
     fun setPlatformDecoderOptions(platformDecoderOptions: PlatformDecoderOptions) = asBuilder {
@@ -566,6 +575,7 @@ class ImagePipelineExperiments private constructor(builder: Builder) {
     intermediateProgressUpdatesDisabled = builder.intermediateProgressUpdatesDisabled
     intermediateProgressUpdatesForPrefetchDisabled =
         builder.intermediateProgressUpdatesForPrefetchDisabled
+    skipNonJpegIntermediateDecodeScheduling = builder.skipNonJpegIntermediateDecodeScheduling
     throwCacheMissExceptionOnCacheMiss = builder.throwCacheMissExceptionOnCacheMiss
     usePostProcessedCacheKey = builder.usePostProcessedCacheKey
     usePostprocessorDuringDecodedPrefetch = builder.usePostprocessorDuringDecodedPrefetch
