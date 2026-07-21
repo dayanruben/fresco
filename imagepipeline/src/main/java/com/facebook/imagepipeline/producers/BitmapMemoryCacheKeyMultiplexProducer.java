@@ -28,7 +28,7 @@ public class BitmapMemoryCacheKeyMultiplexProducer
 
   public BitmapMemoryCacheKeyMultiplexProducer(
       CacheKeyFactory cacheKeyFactory,
-      Producer inputProducer,
+      Producer<CloseableReference<CloseableImage>> inputProducer,
       ImagePipelineConfigInterface config) {
     super(
         inputProducer,

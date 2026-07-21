@@ -10,6 +10,7 @@ package com.facebook.imagepipeline.platform
 import android.graphics.Bitmap
 import android.graphics.ColorSpace
 import android.graphics.Rect
+import com.facebook.common.memory.PooledByteBuffer
 import com.facebook.common.references.CloseableReference
 import com.facebook.common.references.ResourceReleaser
 import com.facebook.imagepipeline.image.EncodedImage
@@ -93,7 +94,7 @@ class EfficientPlatformDecoder(
     }
 
     synchronized(encodedImage) {
-      val ref = encodedImage.getByteBufferRef()
+      val ref: CloseableReference<PooledByteBuffer>? = encodedImage.getByteBufferRef()
       if (ref != null) {
         try {
           ref.get().read(0, bytes, 0, effectiveLength)
@@ -148,7 +149,7 @@ class EfficientPlatformDecoder(
   }
 
   private fun extractBytes(encodedImage: EncodedImage): ByteArray {
-    val ref = encodedImage.getByteBufferRef()
+    val ref: CloseableReference<PooledByteBuffer>? = encodedImage.getByteBufferRef()
     return if (ref != null) {
       try {
         val buffer = ref.get()

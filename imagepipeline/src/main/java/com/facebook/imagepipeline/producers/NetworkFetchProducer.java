@@ -34,6 +34,9 @@ import javax.annotation.Nullable;
  * <p>Clients should provide an instance of {@link NetworkFetcher} to make use of their networking
  * stack. Use {@link HttpUrlConnectionNetworkFetcher} as a model.
  */
+// The concrete FETCH_STATE of the injected NetworkFetcher is unknown at this layer, so it is held
+// as a raw type; genericizing the producer would only push the raw-type warnings onto every caller.
+@SuppressWarnings({"rawtypes", "unchecked"})
 @Nullsafe(Nullsafe.Mode.LOCAL)
 public class NetworkFetchProducer implements Producer<EncodedImage> {
 

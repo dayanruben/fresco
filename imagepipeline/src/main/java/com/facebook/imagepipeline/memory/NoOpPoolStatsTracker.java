@@ -25,7 +25,7 @@ public class NoOpPoolStatsTracker implements PoolStatsTracker {
   }
 
   @Override
-  public void setBasePool(BasePool basePool) {}
+  public void setBasePool(BasePool<?> basePool) {}
 
   @Override
   public void onValueReuse(int bucketedSize) {}

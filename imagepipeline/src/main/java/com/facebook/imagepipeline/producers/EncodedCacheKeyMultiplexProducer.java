@@ -27,7 +27,7 @@ public class EncodedCacheKeyMultiplexProducer
   public EncodedCacheKeyMultiplexProducer(
       CacheKeyFactory cacheKeyFactory,
       boolean keepCancelledFetchAsLowPriority,
-      Producer inputProducer,
+      Producer<EncodedImage> inputProducer,
       ImagePipelineConfigInterface config) {
     super(
         inputProducer,

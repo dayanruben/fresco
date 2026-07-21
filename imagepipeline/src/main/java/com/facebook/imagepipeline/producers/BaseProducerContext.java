@@ -83,6 +83,7 @@ public class BaseProducerContext implements ProducerContext {
         imagePipelineConfig);
   }
 
+  @SuppressWarnings("this-escape")
   public BaseProducerContext(
       ImageRequest imageRequest,
       String id,
@@ -330,19 +331,19 @@ public class BaseProducerContext implements ProducerContext {
 
   @Nullable
   @Override
+  @SuppressWarnings("unchecked")
   public <T> T getExtra(String key) {
-    //noinspection unchecked
     return (T) mExtras.get(key);
   }
 
   @Nullable
   @Override
+  @SuppressWarnings("unchecked")
   public <E> E getExtra(String key, @Nullable E valueIfNotFound) {
     Object maybeValue = mExtras.get(key);
     if (maybeValue == null) {
       return valueIfNotFound;
     }
-    //noinspection unchecked
     return (E) maybeValue;
   }
 

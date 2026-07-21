@@ -41,6 +41,8 @@ public class ListDataSource<T> extends AbstractDataSource<List<CloseableReferenc
     mFinishedDataSources = 0;
   }
 
+  @SafeVarargs
+  @SuppressWarnings({"unchecked", "varargs"})
   public static <T> ListDataSource<T> create(DataSource<CloseableReference<T>>... dataSources) {
     Preconditions.checkNotNull(dataSources);
     Preconditions.checkState(dataSources.length > 0);

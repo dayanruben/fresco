@@ -126,7 +126,7 @@ class PostprocessorProducer(
           return
         }
         oldSourceImageRef = mSourceImageRef
-        mSourceImageRef = CloseableReference.cloneOrNull<CloseableImage?>(sourceImageRef)
+        mSourceImageRef = CloseableReference.cloneOrNull<CloseableImage>(sourceImageRef)
         mStatus = status
         mIsDirty = true
         shouldSubmit = setRunningIfDirtyAndNotRunning()
@@ -254,7 +254,7 @@ class PostprocessorProducer(
                 exifOrientation,
             )
         closeableStaticBitmap.putExtras(staticBitmap.getExtras())
-        return CloseableReference.of<CloseableImage?>(closeableStaticBitmap)
+        return CloseableReference.of<CloseableImage>(closeableStaticBitmap)
       } finally {
         CloseableReference.closeSafely(bitmapRef)
       }

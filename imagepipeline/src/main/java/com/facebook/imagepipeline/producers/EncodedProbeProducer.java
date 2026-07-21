@@ -36,8 +36,8 @@ public class EncodedProbeProducer implements Producer<EncodedImage> {
   public EncodedProbeProducer(
       Supplier<DiskCachesStore> diskCachesStoreSupplier,
       CacheKeyFactory cacheKeyFactory,
-      BoundedLinkedHashSet encodedMemoryCacheHistory,
-      BoundedLinkedHashSet diskCacheHistory,
+      BoundedLinkedHashSet<CacheKey> encodedMemoryCacheHistory,
+      BoundedLinkedHashSet<CacheKey> diskCacheHistory,
       Producer<EncodedImage> inputProducer) {
     mDiskCachesStoreSupplier = diskCachesStoreSupplier;
     mCacheKeyFactory = cacheKeyFactory;

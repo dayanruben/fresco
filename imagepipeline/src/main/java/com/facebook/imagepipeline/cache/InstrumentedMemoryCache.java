@@ -17,9 +17,9 @@ import javax.annotation.Nullable;
 public class InstrumentedMemoryCache<K, V> implements MemoryCache<K, V> {
 
   private final MemoryCache<K, V> mDelegate;
-  private final MemoryCacheTracker mTracker;
+  private final MemoryCacheTracker<K> mTracker;
 
-  public InstrumentedMemoryCache(MemoryCache<K, V> delegate, MemoryCacheTracker tracker) {
+  public InstrumentedMemoryCache(MemoryCache<K, V> delegate, MemoryCacheTracker<K> tracker) {
     mDelegate = delegate;
     mTracker = tracker;
   }

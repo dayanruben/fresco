@@ -52,6 +52,7 @@ public class SharedByteArray implements MemoryTrimmable {
 
   private final ResourceReleaser<byte[]> mResourceReleaser;
 
+  @SuppressWarnings("this-escape")
   public SharedByteArray(MemoryTrimmableRegistry memoryTrimmableRegistry, PoolParams params) {
     Preconditions.checkNotNull(memoryTrimmableRegistry);
     Preconditions.checkArgument(params.minBucketSize > 0);

@@ -90,7 +90,7 @@ public class BucketMap<T> {
   @VisibleForTesting
   synchronized int valueCount() {
     int count = 0;
-    LinkedEntry entry = mHead;
+    LinkedEntry<T> entry = mHead;
     while (entry != null) {
       if (entry.value != null) {
         count += entry.value.size();

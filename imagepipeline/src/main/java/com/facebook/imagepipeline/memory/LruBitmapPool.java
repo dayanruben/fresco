@@ -23,6 +23,7 @@ public class LruBitmapPool implements BitmapPool {
   private final PoolStatsTracker mPoolStatsTracker;
   private int mCurrentSize;
 
+  @SuppressWarnings("this-escape")
   public LruBitmapPool(
       int maxPoolSize,
       int maxBitmapSize,

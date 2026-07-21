@@ -27,6 +27,7 @@ class OOMSoftReferenceBucket<V> extends Bucket<V> {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public @Nullable V pop() {
     OOMSoftReference<V> ref = (OOMSoftReference<V>) mFreeList.poll();
     Preconditions.checkNotNull(ref);

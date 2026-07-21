@@ -29,7 +29,7 @@ open class BitmapPoolBackend : LruBucketsPoolBackend<Bitmap>() {
     return null
   }
 
-  override fun getSize(bitmap: Bitmap): Int = BitmapUtil.getSizeInBytes(bitmap)
+  override fun getSize(item: Bitmap): Int = BitmapUtil.getSizeInBytes(item)
 
   protected fun isReusable(bitmap: Bitmap?): Boolean {
     if (bitmap == null) {

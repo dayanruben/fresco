@@ -41,7 +41,6 @@ object DiskCacheDecision {
       CacheChoice.SMALL -> "small"
       CacheChoice.DEFAULT -> "default"
       CacheChoice.DYNAMIC -> imageRequest.diskCacheId
-      else -> null
     }
   }
 

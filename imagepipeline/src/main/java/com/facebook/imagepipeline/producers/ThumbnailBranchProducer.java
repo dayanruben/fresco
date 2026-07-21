@@ -27,6 +27,8 @@ public class ThumbnailBranchProducer implements Producer<EncodedImage> {
 
   private final ThumbnailProducer<EncodedImage>[] mThumbnailProducers;
 
+  @SafeVarargs
+  @SuppressWarnings({"unchecked", "varargs"})
   public ThumbnailBranchProducer(ThumbnailProducer<EncodedImage>... thumbnailProducers) {
     mThumbnailProducers = Preconditions.checkNotNull(thumbnailProducers);
     Preconditions.checkElementIndex(0, mThumbnailProducers.length);

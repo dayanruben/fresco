@@ -533,6 +533,8 @@ public class ImageRequestBuilder {
 
   /** An exception class for builder methods. */
   public static class BuilderException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+
     public BuilderException(String message) {
       super("Invalid request builder: " + message);
     }

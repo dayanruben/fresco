@@ -20,7 +20,7 @@ public class InstrumentedMemoryCacheBitmapMemoryCacheFactory {
 
     imageCacheStatsTracker.registerBitmapMemoryCache(bitmapMemoryCache);
 
-    MemoryCacheTracker memoryCacheTracker =
+    MemoryCacheTracker<CacheKey> memoryCacheTracker =
         new MemoryCacheTracker<CacheKey>() {
           @Override
           public void onCacheHit(CacheKey cacheKey) {

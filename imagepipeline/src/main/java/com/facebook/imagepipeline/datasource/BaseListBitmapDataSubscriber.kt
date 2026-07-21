@@ -39,7 +39,7 @@ abstract class BaseListBitmapDataSubscriber :
     }
     try {
       val bitmapList: MutableList<Bitmap?> = ArrayList(imageRefList.size)
-      for (closeableImageRef in imageRefList) {
+      for (closeableImageRef: CloseableReference<CloseableImage>? in imageRefList) {
         if (closeableImageRef != null && closeableImageRef.get() is CloseableBitmap) {
           bitmapList.add((closeableImageRef.get() as CloseableBitmap).underlyingBitmap)
         } else {

@@ -20,7 +20,7 @@ public class EncodedMemoryCacheFactory {
 
     imageCacheStatsTracker.registerEncodedMemoryCache(encodedMemoryCache);
 
-    MemoryCacheTracker memoryCacheTracker =
+    MemoryCacheTracker<CacheKey> memoryCacheTracker =
         new MemoryCacheTracker<CacheKey>() {
           @Override
           public void onCacheHit(CacheKey cacheKey) {

@@ -32,7 +32,7 @@ public class SimpleProgressiveJpegConfig implements ProgressiveJpegConfig {
   private static class DefaultDynamicValueConfig implements DynamicValueConfig {
     @Override
     public List<Integer> getScansToDecode(ImageRequest imageRequest) {
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
     }
 
     @Override

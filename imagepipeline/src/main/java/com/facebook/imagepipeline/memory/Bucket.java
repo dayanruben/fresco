@@ -44,7 +44,7 @@ public class Bucket<V> {
 
   public final int mItemSize; // size in bytes of items in this bucket
   public final int mMaxLength; // 'max' length for this bucket
-  final Queue mFreeList; // the free list for this bucket, subclasses can vary type
+  final Queue<Object> mFreeList; // the free list for this bucket, subclasses can vary type
 
   private final boolean mFixBucketsReinitialization;
 
@@ -64,7 +64,7 @@ public class Bucket<V> {
 
     mItemSize = itemSize;
     mMaxLength = maxLength;
-    mFreeList = new LinkedList();
+    mFreeList = new LinkedList<>();
     mInUseLength = inUseLength;
 
     mFixBucketsReinitialization = fixBucketsReinitialization;
@@ -105,6 +105,7 @@ public class Bucket<V> {
    * @return the first value (if any) from the free list
    */
   @Nullable
+  @SuppressWarnings("unchecked")
   public V pop() {
     return (V) mFreeList.poll();
   }

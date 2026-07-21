@@ -101,7 +101,7 @@ public class EncodedMemoryCacheProducer implements Producer<EncodedImage> {
           return;
         }
 
-        Consumer consumerOfInputProducer =
+        Consumer<EncodedImage> consumerOfInputProducer =
             new EncodedMemoryCacheConsumer(
                 consumer,
                 mMemoryCache,
