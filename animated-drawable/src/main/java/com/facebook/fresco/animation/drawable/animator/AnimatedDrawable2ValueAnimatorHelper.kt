@@ -18,12 +18,11 @@ object AnimatedDrawable2ValueAnimatorHelper {
 
   @JvmStatic
   fun createValueAnimator(animatedDrawable: AnimatedDrawable2, maxDurationMs: Int): ValueAnimator? {
-    val animator =
-        createValueAnimator(
-            animatedDrawable,
-            animatedDrawable.loopCount,
-            animatedDrawable.loopDurationMs,
-        ) ?: return null
+    val animator = createValueAnimator(
+        animatedDrawable,
+        animatedDrawable.loopCount,
+        animatedDrawable.loopDurationMs,
+    )
     val repeatCount = Math.max(maxDurationMs / animatedDrawable.loopDurationMs, 1).toInt()
     animator.repeatCount = repeatCount
     return animator
