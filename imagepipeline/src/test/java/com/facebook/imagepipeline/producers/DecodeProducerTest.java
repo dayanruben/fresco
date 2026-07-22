@@ -8,10 +8,20 @@
 package com.facebook.imagepipeline.producers;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyBoolean;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.nullable;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.media.ExifInterface;
@@ -43,13 +53,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import javax.annotation.Nullable;
-import org.junit.*;
 import org.junit.After;
-import org.junit.runner.*;
-import org.mockito.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -401,6 +414,42 @@ public class DecodeProducerTest {
     consumer.onNewResult(mEncodedImage, Consumer.IS_LAST);
 
     verify(mJobScheduler, times(1)).scheduleJob();
+  }
+
+  @Test
+  public void
+      testSkipNonJpegIntermediateScheduling_expectationChange_flagOff_schedulesUnconditionally() {
+    mEncodedImage.setImageFormat(DefaultImageFormats.WEBP_SIMPLE);
+    setupNetworkUri();
+    mProducerContext.setIsIntermediateResultExpected(false);
+    Consumer<EncodedImage> consumer = produceResults();
+
+    when(mJobScheduler.updateJob(mEncodedImage, Consumer.NO_FLAGS)).thenReturn(true);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+    verify(mJobScheduler, never()).scheduleJob();
+
+    mProducerContext.setIsIntermediateResultExpected(true);
+
+    verify(mJobScheduler).scheduleJob();
+    verify(mJobScheduler, never()).scheduleJobIfImageFormat(any());
+  }
+
+  @Test
+  public void testSkipNonJpegIntermediateScheduling_expectationChange_flagOn_checksImageFormat() {
+    when(mPipelineExperiments.getSkipNonJpegIntermediateDecodeScheduling()).thenReturn(true);
+    mEncodedImage.setImageFormat(DefaultImageFormats.WEBP_SIMPLE);
+    setupNetworkUri();
+    mProducerContext.setIsIntermediateResultExpected(false);
+    Consumer<EncodedImage> consumer = produceResults();
+
+    when(mJobScheduler.updateJob(mEncodedImage, Consumer.NO_FLAGS)).thenReturn(true);
+    consumer.onNewResult(mEncodedImage, Consumer.NO_FLAGS);
+    verify(mJobScheduler, never()).scheduleJob();
+
+    mProducerContext.setIsIntermediateResultExpected(true);
+
+    verify(mJobScheduler).scheduleJobIfImageFormat(DefaultImageFormats.JPEG);
+    verify(mJobScheduler, never()).scheduleJob();
   }
 
   @Test

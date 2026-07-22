@@ -9,6 +9,7 @@ package com.facebook.imagepipeline.producers;
 
 import android.os.SystemClock;
 import androidx.annotation.VisibleForTesting;
+import com.facebook.imageformat.ImageFormat;
 import com.facebook.imagepipeline.image.EncodedImage;
 import com.facebook.imagepipeline.instrumentation.FrescoInstrumenter;
 import com.facebook.infer.annotation.FalseOnNull;
@@ -163,11 +164,29 @@ public class JobScheduler {
    * @return true if the job was scheduled, false if there was no valid job to be scheduled
    */
   public boolean scheduleJob() {
+    return scheduleJob(null);
+  }
+
+  /**
+   * Schedules the currently set job only when its encoded image has the requested format.
+   *
+   * @return true if the job was scheduled, false if there was no valid matching job
+   */
+  public boolean scheduleJobIfImageFormat(ImageFormat imageFormat) {
+    return scheduleJob(imageFormat);
+  }
+
+  private boolean scheduleJob(@Nullable ImageFormat requiredImageFormat) {
     long now = SystemClock.uptimeMillis();
     long when = 0;
     boolean shouldEnqueue = false;
     synchronized (this) {
       if (!shouldProcess(mEncodedImage, mStatus)) {
+        return false;
+      }
+      if (requiredImageFormat != null
+          && (mEncodedImage == null
+              || !requiredImageFormat.equals(mEncodedImage.getImageFormat()))) {
         return false;
       }
       switch (mJobState) {

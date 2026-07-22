@@ -482,7 +482,14 @@ class DecodeProducer(
           object : BaseProducerContextCallbacks() {
             override fun onIsIntermediateResultExpectedChanged() {
               if (producerContext.isIntermediateResultExpected) {
-                jobScheduler.scheduleJob()
+                if (
+                    producerContext.imagePipelineConfig.experiments
+                        .skipNonJpegIntermediateDecodeScheduling
+                ) {
+                  jobScheduler.scheduleJobIfImageFormat(DefaultImageFormats.JPEG)
+                } else {
+                  jobScheduler.scheduleJob()
+                }
               }
             }
 

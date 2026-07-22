@@ -10,6 +10,7 @@ package com.facebook.imagepipeline.producers
 import android.os.SystemClock
 import com.facebook.common.memory.PooledByteBuffer
 import com.facebook.common.references.CloseableReference
+import com.facebook.imageformat.DefaultImageFormats
 import com.facebook.imagepipeline.image.EncodedImage
 import com.facebook.imagepipeline.producers.JobScheduler.JobRunnable
 import com.facebook.imagepipeline.producers.JobScheduler.JobStartExecutorSupplier
@@ -19,6 +20,7 @@ import com.facebook.imagepipeline.testing.TestScheduledExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -202,6 +204,31 @@ class JobSchedulerTest {
     fakeClockForScheduled.incrementBy(1234)
     assertThat(testJobRunnable.jobs.size).isEqualTo(1)
     testJobRunnable.jobs[0]?.let { assertJobsEqual(it, encodedImage, Consumer.NO_FLAGS) }
+  }
+
+  @Test
+  fun testScheduleIfImageFormat_MatchingFormat() {
+    val encodedImage = fakeEncodedImage()
+    encodedImage.imageFormat = DefaultImageFormats.JPEG
+    encodedImage.width = 1
+    encodedImage.height = 1
+    jobScheduler.updateJob(encodedImage, Consumer.NO_FLAGS)
+
+    assertThat(jobScheduler.scheduleJobIfImageFormat(DefaultImageFormats.JPEG)).isTrue()
+    assertThat(testExecutorService.pendingCount).isEqualTo(1)
+  }
+
+  @Test
+  fun testScheduleIfImageFormat_NonMatchingFormat() {
+    val encodedImage = fakeEncodedImage()
+    encodedImage.imageFormat = DefaultImageFormats.WEBP_SIMPLE
+    encodedImage.width = 1
+    encodedImage.height = 1
+    jobScheduler.updateJob(encodedImage, Consumer.NO_FLAGS)
+
+    assertThat(jobScheduler.scheduleJobIfImageFormat(DefaultImageFormats.JPEG)).isFalse()
+    assertThat(testScheduledExecutorService.pendingCount).isEqualTo(0)
+    assertThat(testExecutorService.pendingCount).isEqualTo(0)
   }
 
   @Test
@@ -411,13 +438,11 @@ class JobSchedulerTest {
     jobScheduler.updateJob(fakeEncodedImage(), Consumer.NO_FLAGS)
     jobScheduler.scheduleJob()
     testJobRunnable.fail.set(true)
-    try {
-      fakeClockForTime.incrementBy(1234)
-      fakeClockForWorker.incrementBy(0)
-      throw RuntimeException("job should have failed, but it didn't.")
-    } catch (e: Exception) {
-      // expected
-    }
+    assertThatThrownBy {
+          fakeClockForTime.incrementBy(1234)
+          fakeClockForWorker.incrementBy(0)
+        }
+        .isInstanceOf(Exception::class.java)
     assertThat(jobScheduler.mJobState).isEqualTo(JobScheduler.JobState.IDLE)
     assertThat(testScheduledExecutorService.pendingCount).isEqualTo(0)
     assertThat(testExecutorService.pendingCount).isEqualTo(0)
