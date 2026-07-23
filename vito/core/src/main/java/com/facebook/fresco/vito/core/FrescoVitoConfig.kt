@@ -131,4 +131,7 @@ interface FrescoVitoConfig {
    * (usually a memory-cache hit). Default off; gated behind an A/B flag.
    */
   fun releaseImageOnVisibilityGoneImmediately(): Boolean = false
+
+  /** Prevents draw passes from using an image after its owning reference is closed. */
+  fun fixClearActualImageLayerOnClose(): Boolean = false
 }

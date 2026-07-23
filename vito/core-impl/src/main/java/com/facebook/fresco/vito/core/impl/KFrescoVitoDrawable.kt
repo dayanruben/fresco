@@ -33,6 +33,7 @@ class KFrescoVitoDrawable(
     private val resetLocalImagePerfStateListener: Boolean = false,
     private val resetControllerListener2: Boolean = false,
     private val optimizeAlphaHandling: Boolean = false,
+    private val clearActualImageLayerOnClose: Boolean = false,
 ) : Drawable(), FrescoDrawableInterface, Drawable.Callback {
 
   var _imageId: Long = 0
@@ -61,6 +62,11 @@ class KFrescoVitoDrawable(
 
   private val closeableCleanupFunction: (Closeable) -> Unit = { resource ->
     ImageReleaseScheduler.cancelAllReleasing(this)
+    if (clearActualImageLayerOnClose) {
+      // The resource owns the bitmap referenced by this layer. Drop the data model before closing
+      // it, while preserving the layer bounds for a replacement image.
+      actualImageLayer.configure(dataModel = null)
+    }
     try {
       resource.close()
     } catch (_: IOException) {
