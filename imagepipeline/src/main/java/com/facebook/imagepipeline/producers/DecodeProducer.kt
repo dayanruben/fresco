@@ -149,15 +149,8 @@ class DecodeProducer(
                   )
                       CacheMissException("Image not found in cache")
                   else ExceptionWithNoStacktrace("Encoded image is null.")
-
-              if (
-                  !producerContext.imagePipelineConfig.experiments.cancelDecodeOnCacheMiss ||
-                      fullFetch ||
-                      cacheHit
-              ) {
-                handleError(exception)
-                return
-              }
+              handleError(exception)
+              return
             } else if (!newResult.isValid) {
               handleError(ExceptionWithNoStacktrace("Encoded image is not valid."))
               return

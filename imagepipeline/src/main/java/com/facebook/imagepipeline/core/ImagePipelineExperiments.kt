@@ -72,7 +72,6 @@ class ImagePipelineExperiments private constructor(builder: Builder) {
   val shouldIgnoreCacheSizeMismatch: Boolean
   val shouldUseDecodingBufferHelper: Boolean
   val allowProgressiveOnPrefetch: Boolean
-  val cancelDecodeOnCacheMiss: Boolean
   val animationRenderFpsLimit: Int
   val prefetchShortcutEnabled: Boolean
   val platformDecoderOptions: PlatformDecoderOptions
@@ -137,7 +136,6 @@ class ImagePipelineExperiments private constructor(builder: Builder) {
     @JvmField var shouldIgnoreCacheSizeMismatch = false
     @JvmField var allowProgressiveOnPrefetch = false
     @JvmField var animationRenderFpsLimit = 30
-    @JvmField var cancelDecodeOnCacheMiss = false
     @JvmField var prefetchShortcutEnabled = false
 
     @JvmField var platformDecoderOptions = PlatformDecoderOptions()
@@ -356,10 +354,6 @@ class ImagePipelineExperiments private constructor(builder: Builder) {
       this.animationRenderFpsLimit = animationRenderFpsLimit
     }
 
-    fun setCancelDecodeOnCacheMiss(cancelDecodeOnCacheMiss: Boolean) = asBuilder {
-      this.cancelDecodeOnCacheMiss = cancelDecodeOnCacheMiss
-    }
-
     fun setSkipNonJpegIntermediateDecodeScheduling(
         skipNonJpegIntermediateDecodeScheduling: Boolean
     ) = asBuilder {
@@ -563,7 +557,6 @@ class ImagePipelineExperiments private constructor(builder: Builder) {
     shouldStoreCacheEntrySize = builder.shouldStoreCacheEntrySize
     shouldIgnoreCacheSizeMismatch = builder.shouldIgnoreCacheSizeMismatch
     shouldUseDecodingBufferHelper = builder.shouldUseDecodingBufferHelper
-    cancelDecodeOnCacheMiss = builder.cancelDecodeOnCacheMiss
     prefetchShortcutEnabled = builder.prefetchShortcutEnabled
     platformDecoderOptions = builder.platformDecoderOptions
     isBinaryXmlEnabled = builder.isBinaryXmlEnabled
