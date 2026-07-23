@@ -30,7 +30,7 @@ import com.instagram.common.cache.igdiskcache.intf.SnapshotCacheItem
 import com.instagram.common.cache.igdiskcache.intf.SnapshotInputStream
 import com.instagram.common.cache.igdiskcache.intf.SnapshotMetadata
 import com.instagram.common.cache.image.IgImageInfraBuilder
-import com.instagram.common.cache.image.IgImageInfraJavaImpl
+import com.instagram.common.cache.image.IgImageInfraKotlin
 import com.instagram.common.cache.image.diskcachelayer.DiskCacheFactoryImpl
 import com.instagram.common.cache.image.diskcachelayer.SharedDiskCacheFactory
 import com.instagram.common.cache.image.diskcachelayer.intf.DiskCacheFactory
@@ -184,13 +184,13 @@ object SampleInfraFactory {
       session: Session,
       memoryCache: InMemoryBitmapCacheIntf,
       diskCacheFactory: DiskCacheFactory,
-  ): IgImageInfraJavaImpl {
+  ): IgImageInfraKotlin {
     val infra =
         IgImageInfraBuilder(session, NetworkImageLoaderFactoryImpl, memoryCache, diskCacheFactory)
             .setContext(context)
             .build()
-    IgImageInfraJavaImpl.setInstance(infra)
-    Log.d(TAG, "Real IgImageInfraJavaImpl built via IgImageInfraBuilder")
+    IgImageInfraKotlin.setInstance(infra)
+    Log.d(TAG, "Real IgImageInfraKotlin built via IgImageInfraBuilder")
     return infra
   }
 
@@ -226,7 +226,7 @@ object SampleInfraFactory {
     // Route Fresco network through IG's unified network layer
     if (toggles["use_fresco_network_pipeline"] == true) {
       try {
-        val imageInfra = IgImageInfraJavaImpl.getInstance()
+        val imageInfra = IgImageInfraKotlin.getInstance()
         val loaderHost = imageInfra?.getImageLoaderHost()
         if (loaderHost != null) {
           val networkLayerFactory:
